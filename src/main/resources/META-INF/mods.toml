@@ -1,11 +1,11 @@
 modLoader="javafml"
 loaderVersion="[31,)"
-issueTrackerURL="http://my.issue.tracker/"
+issueTrackerURL="https://github.com/aradgal/Byte-s-Structures/issues"
 [[mods]]
 modId="bytesstructures"
 version="1.0.0"
 displayName="Byte's Structures"
-updateJSONURL="http://myurl.me/"
+updateJSONURL="https://raw.githubusercontent.com/aradgal/Byte-s-Structures/master/versionChecker.json"
 displayURL="http://example.com/"
 logoFile="examplemod.png"
 credits=""
