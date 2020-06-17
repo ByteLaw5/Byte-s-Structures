@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": {"model": "bytesstructures:block/ancient_brick_slab_bottom"},
+        "type=top": {"model": "bytesstructures:block/ancient_brick_slab_top"},
+        "type=double": {"model": "bytesstructures:block/ancient_bricks"}
+    }
+}

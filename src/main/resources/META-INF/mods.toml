@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+issueTrackerURL="http://my.issue.tracker/"
+[[mods]]
+modId="bytesstructures"
+version="1.0.0"
+displayName="Byte's Structures"
+updateJSONURL="http://myurl.me/"
+displayURL="http://example.com/"
+logoFile="examplemod.png"
+credits=""
+authors="ByteLaw"
+description='''
+ByteLaw's Structures is a mod which adds more structures to the world'''
+[[dependencies.bytesstructures]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.bytesstructures]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"

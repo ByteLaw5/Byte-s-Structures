@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "bytesstructures:block/ancient_pillar" },
+        "axis=z":   { "model": "bytesstructures:block/ancient_pillar", "x": 90 },
+        "axis=x":   { "model": "bytesstructures:block/ancient_pillar", "x": 90, "y": 90 }
+    }
+}
