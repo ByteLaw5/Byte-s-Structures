@@ -12,6 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.ProbabilityConfig;
+import net.minecraft.world.gen.placement.IPlacementConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -62,10 +64,8 @@ public class BytesStructures {
                 if(feature instanceof AbstractStructure) {
                     AbstractStructure<?> structure = (AbstractStructure<?>)feature;
                     structure.getBiomesToSpawnAt().forEach(biome -> {
-                        LOGGER.debug("Structure Spawn Chance: " + BytesConfig.testStructureSpawnChance);
                         biome.addStructure(BytesFeatures.TEST_STRUCTURE.get().withConfiguration(new ProbabilityConfig(BytesConfig.testStructureSpawnChance)));
-                        biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.TEST_STRUCTURE.get().withConfiguration(new ProbabilityConfig(BytesConfig.testStructureSpawnChance)));
-                        AbstractStructure.LOGGER_STATIC.debug("Added structure to biome " + biome);
+                        biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.TEST_STRUCTURE.get().withConfiguration(new ProbabilityConfig(BytesConfig.testStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
                     });
                 }
             }

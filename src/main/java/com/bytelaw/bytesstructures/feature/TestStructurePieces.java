@@ -24,8 +24,8 @@ import java.util.Random;
 
 public class TestStructurePieces {
     private static final ResourceLocation
-            LOCATION = BytesStructures.resource("structures/teststructureroom.nbt"),
-            LOCATION_2 = BytesStructures.resource("structures/teststructureroom2.nbt");
+            LOCATION = BytesStructures.resource("teststructureroom"),
+            LOCATION_2 = BytesStructures.resource("teststructureroom2");
 
     public static void addStructurePieces(TemplateManager manager, BlockPos pos, List<StructurePiece> pieces) {
         pieces.add(new Piece(pos, manager));
@@ -52,16 +52,16 @@ public class TestStructurePieces {
 
         @Override
         public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGeneratorIn, Random randomIn, MutableBoundingBox mutableBoundingBoxIn, ChunkPos chunkPosIn) {
-            PlacementSettings settings = new PlacementSettings().addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
-            BlockPos toPlaceAt = templatePosition.add(Template.transformedBlockPos(settings, templatePosition));
-            int height = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, toPlaceAt.getX(), toPlaceAt.getZ());
+            PlacementSettings placementsettings = (new PlacementSettings()).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            BlockPos blockpos = BlockPos.ZERO;
+            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
+            int i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
+            BlockPos blockpos2 = this.templatePosition;
+            this.templatePosition = this.templatePosition.add(0, i - 90 - 1, 0);
+            boolean flag = super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
 
-            BlockPos origin = templatePosition;
-            templatePosition = templatePosition.add(0, height, 0);
-            boolean ret = super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
-            templatePosition = origin;
-
-            return ret;
+            this.templatePosition = blockpos2;
+            return flag;
         }
 
         @Override
@@ -77,13 +77,13 @@ public class TestStructurePieces {
 
     public static class AncientPiece extends TemplateStructurePiece {
         public AncientPiece(BlockPos pos, TemplateManager manager) {
-            super(BytesFeatures.TEST_STRUCTURE_ROOM, 0);
+            super(BytesFeatures.TEST_STRUCTURE_ANCIENT_ROOM, 1);
             this.templatePosition = pos;
             setup(manager);
         }
 
         public AncientPiece(TemplateManager manager, CompoundNBT nbt) {
-            super(BytesFeatures.TEST_STRUCTURE_ROOM, nbt);
+            super(BytesFeatures.TEST_STRUCTURE_ANCIENT_ROOM, nbt);
             setup(manager);
         }
 
@@ -91,6 +91,20 @@ public class TestStructurePieces {
             PlacementSettings settings = new PlacementSettings().addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             Template template = manager.getTemplateDefaulted(LOCATION_2);
             setup(template, this.templatePosition, settings);
+        }
+
+        @Override
+        public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGeneratorIn, Random randomIn, MutableBoundingBox mutableBoundingBoxIn, ChunkPos chunkPosIn) {
+            PlacementSettings placementsettings = (new PlacementSettings()).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            BlockPos blockpos = BlockPos.ZERO;
+            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
+            int i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
+            BlockPos blockpos2 = this.templatePosition;
+            this.templatePosition = this.templatePosition.add(0, i - 90 - 1, 0);
+            boolean flag = super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
+
+            this.templatePosition = blockpos2;
+            return flag;
         }
 
         @Override

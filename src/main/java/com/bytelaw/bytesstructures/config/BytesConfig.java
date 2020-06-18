@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid= BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid=BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
 public class BytesConfig {
     public static final CommonConfig COMMON;
     public static final ForgeConfigSpec COMMON_SPEC;
@@ -29,8 +29,6 @@ public class BytesConfig {
 
     public static void bakeConfig() {
         int spawnChanceTest = COMMON.testStructureSpawnChance.get();
-        if(spawnChanceTest > 100 || spawnChanceTest < 0)
-            throw new IllegalArgumentException("Value over range " + spawnChanceTest);
         testStructureSpawnChance = (float)spawnChanceTest / 100;
     }
 
@@ -40,9 +38,9 @@ public class BytesConfig {
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("structures");
             testStructureSpawnChance = builder
-                    .comment("Chance that the test structure will spawn",
-                            "Range: 0-100")
-                    .define("testStructureSpawnChance", 15);
+                    .comment("Chance that the test structure will spawn")
+                    .worldRestart() //Makes it that this will need a world restart
+                    .defineInRange("testStructureSpawnChance", 15, 0, 100);
             builder.pop();
         }
     }
