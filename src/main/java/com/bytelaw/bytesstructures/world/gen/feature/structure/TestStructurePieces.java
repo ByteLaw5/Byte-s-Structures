@@ -1,7 +1,7 @@
-package com.bytelaw.bytesstructures.feature.structure;
+package com.bytelaw.bytesstructures.world.gen.feature.structure;
 
 import com.bytelaw.bytesstructures.BytesStructures;
-import com.bytelaw.bytesstructures.feature.BytesFeatures;
+import com.bytelaw.bytesstructures.world.gen.feature.BytesFeatures;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;

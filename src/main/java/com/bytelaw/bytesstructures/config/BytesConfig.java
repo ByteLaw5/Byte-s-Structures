@@ -18,7 +18,7 @@ public class BytesConfig {
         COMMON = specPair.getLeft();
     }
 
-    public static float testStructureSpawnChance;
+    public static int testStructureSpawnChance;
 
     @SubscribeEvent
     public static void bakeConfigEvent(ModConfig.ModConfigEvent configEvent) {
@@ -28,8 +28,7 @@ public class BytesConfig {
     }
 
     public static void bakeConfig() {
-        int spawnChanceTest = COMMON.testStructureSpawnChance.get();
-        testStructureSpawnChance = (float)spawnChanceTest / 100;
+        testStructureSpawnChance = COMMON.testStructureSpawnChance.get();
     }
 
     public static class CommonConfig {

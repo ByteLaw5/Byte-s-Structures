@@ -13,11 +13,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import static com.bytelaw.bytesstructures.RegUtil.createRegistry;
-
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
 public class BytesEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = createRegistry(ForgeRegistries.ENTITIES);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, BytesStructures.MODID);
 
     public static final RegistryObject<EntityType<GuardEntity>> GUARD = register("guard", EntityType.Builder.create(GuardEntity::new, EntityClassification.CREATURE));
 
@@ -29,6 +27,4 @@ public class BytesEntities {
     public static void onEntityRegisterEvent(RegistryEvent.Register<EntityType<?>> event) {
         ModdedSpawnEggItem.initUnaddedEggs();
     }
-
-    public static void init() {}
 }

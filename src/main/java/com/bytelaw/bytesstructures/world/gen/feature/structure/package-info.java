@@ -1,6 +1,6 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-package com.bytelaw.bytesstructures.feature;
+package com.bytelaw.bytesstructures.world.gen.feature.structure;
 
 import mcp.MethodsReturnNonnullByDefault;
 

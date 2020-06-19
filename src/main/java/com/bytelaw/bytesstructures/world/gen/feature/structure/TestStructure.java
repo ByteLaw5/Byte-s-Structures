@@ -1,5 +1,7 @@
-package com.bytelaw.bytesstructures.feature.structure;
+package com.bytelaw.bytesstructures.world.gen.feature.structure;
 
+import com.bytelaw.bytesstructures.entity.BytesEntities;
+import com.google.common.collect.Lists;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -16,6 +18,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -44,6 +47,11 @@ public class TestStructure extends ScatteredStructure<ProbabilityConfig> {
     @Override
     public int getSize() {
         return 2;
+    }
+
+    @Override
+    public List<Biome.SpawnListEntry> getSpawnList() {
+        return Lists.newArrayList(new Biome.SpawnListEntry(BytesEntities.GUARD.get(), 10, 1, 3));
     }
 
     @Override

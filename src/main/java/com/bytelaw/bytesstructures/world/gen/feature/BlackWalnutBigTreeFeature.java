@@ -1,4 +1,4 @@
-package com.bytelaw.bytesstructures.feature;
+package com.bytelaw.bytesstructures.world.gen.feature;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
@@ -12,8 +12,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public class BlackWalnutTreeFeature extends HugeTreesFeature<HugeTreeFeatureConfig> {
-    public BlackWalnutTreeFeature(Function<Dynamic<?>, ? extends HugeTreeFeatureConfig> function) {
+public class BlackWalnutBigTreeFeature extends HugeTreesFeature<HugeTreeFeatureConfig> {
+    public BlackWalnutBigTreeFeature(Function<Dynamic<?>, ? extends HugeTreeFeatureConfig> function) {
         super(function);
     }
 
