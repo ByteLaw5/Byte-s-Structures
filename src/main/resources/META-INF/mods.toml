@@ -8,7 +8,7 @@ displayName="Byte's Structures"
 updateJSONURL="https://raw.githubusercontent.com/aradgal/Byte-s-Structures/master/versionChecker.json"
 displayURL="http://example.com/"
 logoFile="examplemod.png"
-credits=""
+credits="Cadiboo"
 authors="ByteLaw"
 description='''
 ByteLaw's Structures is a mod which adds more structures to the world'''

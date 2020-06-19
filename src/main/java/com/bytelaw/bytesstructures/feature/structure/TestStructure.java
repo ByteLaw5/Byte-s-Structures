@@ -1,6 +1,5 @@
-package com.bytelaw.bytesstructures.feature;
+package com.bytelaw.bytesstructures.feature.structure;
 
-import com.google.common.collect.Lists;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -10,27 +9,21 @@ import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.ProbabilityConfig;
+import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
-public class TestStructure extends AbstractStructure<ProbabilityConfig> {
+public class TestStructure extends ScatteredStructure<ProbabilityConfig> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     public TestStructure(Function<Dynamic<?>, ? extends ProbabilityConfig> configFactoryIn) {
         super(configFactoryIn);
-    }
-
-    @Override
-    public List<Biome> getBiomesToSpawnAt() {
-        return Lists.newArrayList(ForgeRegistries.BIOMES.getValues());
     }
 
     @Override

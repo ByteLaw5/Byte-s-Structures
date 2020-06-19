@@ -1,0 +1,21 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "bytesstructures:block/walnut",
+        "walnut": "bytesstructures:block/walnut"
+    },
+    "elements": [
+        {
+            "from": [4, 16, 4],
+            "to": [12, 10, 12],
+            "faces": {
+                "down":  {"uv": [0, 0, 8, 8], "texture": "#walnut"},
+                "up":    {"uv": [0, 0, 8, 8], "texture": "#walnut"},
+                "north": {"uv": [0, 8, 8, 6], "texture": "#walnut"},
+                "south": {"uv": [0, 8, 8, 6], "texture": "#walnut"},
+                "west":  {"uv": [0, 8, 8, 6], "texture": "#walnut"},
+                "east":  {"uv": [0, 8, 8, 6], "texture": "#walnut"}
+            }
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "bytesstructures:block/black_walnut_log_top",
+        "side": "bytesstructures:block/black_walnut_log"
+    }
+}

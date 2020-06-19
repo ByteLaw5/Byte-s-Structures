@@ -1,10 +1,13 @@
-package com.bytelaw.bytesstructures.feature;
+package com.bytelaw.bytesstructures.feature.structure;
 
 import com.bytelaw.bytesstructures.BytesStructures;
+import com.bytelaw.bytesstructures.feature.BytesFeatures;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -35,7 +38,7 @@ public class TestStructurePieces {
     public static class Piece extends TemplateStructurePiece {
         public Piece(BlockPos pos, TemplateManager manager) {
             super(BytesFeatures.TEST_STRUCTURE_ROOM, 0);
-            this.templatePosition = pos;
+            this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             setup(manager);
         }
 
@@ -45,23 +48,18 @@ public class TestStructurePieces {
         }
 
         protected void setup(TemplateManager manager) {
-            PlacementSettings settings = new PlacementSettings().addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             Template template = manager.getTemplateDefaulted(LOCATION);
+            PlacementSettings settings = new PlacementSettings().setRotation(Rotation.NONE).setMirror(Mirror.NONE).setCenterOffset(BlockPos.ZERO).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             setup(template, this.templatePosition, settings);
         }
 
         @Override
         public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGeneratorIn, Random randomIn, MutableBoundingBox mutableBoundingBoxIn, ChunkPos chunkPosIn) {
-            PlacementSettings placementsettings = (new PlacementSettings()).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            BlockPos blockpos = BlockPos.ZERO;
-            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
-            int i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
-            BlockPos blockpos2 = this.templatePosition;
-            this.templatePosition = this.templatePosition.add(0, i - 90 - 1, 0);
-            boolean flag = super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
-
-            this.templatePosition = blockpos2;
-            return flag;
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(Rotation.NONE).setMirror(Mirror.NONE).setCenterOffset(BlockPos.ZERO).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3, 0, 0)));
+            int strucHeight = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
+            this.templatePosition = this.templatePosition.add(0, strucHeight, 0);
+            return super.create(worldIn, chunkGeneratorIn, randomIn, boundingBox, chunkPosIn);
         }
 
         @Override
@@ -78,7 +76,7 @@ public class TestStructurePieces {
     public static class AncientPiece extends TemplateStructurePiece {
         public AncientPiece(BlockPos pos, TemplateManager manager) {
             super(BytesFeatures.TEST_STRUCTURE_ANCIENT_ROOM, 1);
-            this.templatePosition = pos;
+            this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             setup(manager);
         }
 
@@ -87,24 +85,19 @@ public class TestStructurePieces {
             setup(manager);
         }
 
-        private void setup(TemplateManager manager) {
-            PlacementSettings settings = new PlacementSettings().addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            Template template = manager.getTemplateDefaulted(LOCATION_2);
+        protected void setup(TemplateManager manager) {
+            Template template = manager.getTemplateDefaulted(LOCATION);
+            PlacementSettings settings = new PlacementSettings().setRotation(Rotation.NONE).setMirror(Mirror.NONE).setCenterOffset(BlockPos.ZERO).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             setup(template, this.templatePosition, settings);
         }
 
         @Override
         public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGeneratorIn, Random randomIn, MutableBoundingBox mutableBoundingBoxIn, ChunkPos chunkPosIn) {
-            PlacementSettings placementsettings = (new PlacementSettings()).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            BlockPos blockpos = BlockPos.ZERO;
-            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, -blockpos.getZ())));
-            int i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
-            BlockPos blockpos2 = this.templatePosition;
-            this.templatePosition = this.templatePosition.add(0, i - 90 - 1, 0);
-            boolean flag = super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
-
-            this.templatePosition = blockpos2;
-            return flag;
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(Rotation.NONE).setMirror(Mirror.NONE).setCenterOffset(BlockPos.ZERO).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3, 0, 0)));
+            int strucHeight = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
+            this.templatePosition = this.templatePosition.add(0, strucHeight, 0);
+            return super.create(worldIn, chunkGeneratorIn, randomIn, boundingBox, chunkPosIn);
         }
 
         @Override
