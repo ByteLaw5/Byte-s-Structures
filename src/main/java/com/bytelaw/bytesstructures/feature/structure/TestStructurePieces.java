@@ -59,7 +59,7 @@ public class TestStructurePieces {
             BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3, 0, 0)));
             int strucHeight = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
             this.templatePosition = this.templatePosition.add(0, strucHeight, 0);
-            return super.create(worldIn, chunkGeneratorIn, randomIn, boundingBox, chunkPosIn);
+            return super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
         }
 
         @Override
@@ -97,7 +97,7 @@ public class TestStructurePieces {
             BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3, 0, 0)));
             int strucHeight = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
             this.templatePosition = this.templatePosition.add(0, strucHeight, 0);
-            return super.create(worldIn, chunkGeneratorIn, randomIn, boundingBox, chunkPosIn);
+            return super.create(worldIn, chunkGeneratorIn, randomIn, mutableBoundingBoxIn, chunkPosIn);
         }
 
         @Override
