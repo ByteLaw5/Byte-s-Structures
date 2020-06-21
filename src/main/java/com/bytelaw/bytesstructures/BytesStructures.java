@@ -10,7 +10,7 @@ import com.bytelaw.bytesstructures.item.BytesItems;
 import com.bytelaw.bytesstructures.world.BytesBiomes;
 import com.bytelaw.bytesstructures.world.gen.feature.BlackWalnutBigTreeFeatureConfig;
 import com.bytelaw.bytesstructures.world.gen.feature.BytesFeatures;
-import com.bytelaw.bytesstructures.world.gen.feature.BytesPlacement;
+import com.bytelaw.bytesstructures.world.gen.feature.structure.ChanceConfig;
 import com.google.common.collect.Lists;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
@@ -20,9 +20,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
+import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -66,7 +65,6 @@ public class BytesStructures {
         BytesEntities.ENTITIES.register(modBus);
         BytesTreeDecorators.TREE_DECORATORS.register(modBus);
         BytesBiomes.BIOMES.register(modBus);
-        BytesPlacement.PLACEMENTS.register(modBus);
         modBus.addListener(this::loadComplete);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
 
@@ -79,8 +77,8 @@ public class BytesStructures {
         DeferredWorkQueue.runLater(() -> {
             BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList())).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
             ForgeRegistries.BIOMES.forEach(biome -> {
-                biome.addStructure(BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-                biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(BytesPlacement.CHANCE.get().configure(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance))));
+                biome.addStructure(BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
+                biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
             });
         });
         LOGGER.info("Completed loading!");

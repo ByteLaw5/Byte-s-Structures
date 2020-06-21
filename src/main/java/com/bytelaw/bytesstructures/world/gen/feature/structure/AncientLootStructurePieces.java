@@ -49,6 +49,8 @@ public class AncientLootStructurePieces {
         rotationOffset = new BlockPos(10, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(new Piece(blockpos, manager, HALLWAY, rotation));
+
+        pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
 
     public static class Piece extends TemplateStructurePiece {

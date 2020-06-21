@@ -18,6 +18,7 @@ public class BytesConfig {
         COMMON = specPair.getLeft();
     }
 
+    //Right now this value doesn't have a use until I figure out how to properly spawn structures
     public static int ancientLootStructureSpawnChance;
     public static int walnutForestBiomeSpawnChance;
 
@@ -40,7 +41,7 @@ public class BytesConfig {
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("structures");
             ancientLootStructureSpawnChance = builder
-                    .comment("Chance that the test structure will spawn")
+                    .comment("Chance that the structure will spawn")
                     .worldRestart() //Makes it that this will need a world restart
                     .defineInRange("ancientLootStructureSpawnChance", 15, 0, 100);
             builder.pop();
