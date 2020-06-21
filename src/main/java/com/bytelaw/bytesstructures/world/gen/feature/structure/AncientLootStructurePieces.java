@@ -67,9 +67,9 @@ public class AncientLootStructurePieces {
 
         public Piece(TemplateManager manager, CompoundNBT nbt) {
             super(BytesFeatures.ANCIENT_LOOT_ROOM, nbt);
-            setup(manager);
             this.templateLocation = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
+            setup(manager);
         }
 
         @Override
