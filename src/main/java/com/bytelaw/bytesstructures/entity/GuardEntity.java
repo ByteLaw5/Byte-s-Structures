@@ -42,7 +42,7 @@ public class GuardEntity extends CreatureEntity {
         getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED);
         getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
-        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
         getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
         getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
         getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(0.5D);

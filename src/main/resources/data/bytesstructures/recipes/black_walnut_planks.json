@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "planks",
+    "ingredients": [
+        {
+            "item": "bytesstructures:black_walnut_log"
+        }
+    ],
+    "result": {
+        "item": "bytesstructures:black_walnut_planks",
+        "count": 4
+    }
+}

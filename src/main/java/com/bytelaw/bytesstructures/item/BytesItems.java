@@ -22,5 +22,6 @@ public class BytesItems {
             BLACK_WALNUT_LEAVES = ITEMS.register("black_walnut_leaves", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_LEAVES.get(), new Item.Properties().group(BytesStructures.GROUP))),
             BLACK_WALNUT_LOG = ITEMS.register("black_walnut_log", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_LOG.get(), new Item.Properties().group(BytesStructures.GROUP))),
             BLACK_WALNUT_SAPLING = ITEMS.register("black_walnut_sapling", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_SAPLING.get(), new Item.Properties().group(BytesStructures.GROUP))),
-            WALNUT = ITEMS.register("walnut", () -> new BlockItem(BytesBlocks.WALNUT.get(), new Item.Properties().group(BytesStructures.GROUP).food(new Food.Builder().hunger(2).fastToEat().saturation(0.5F).build())));
+            WALNUT = ITEMS.register("walnut", () -> new BlockItem(BytesBlocks.WALNUT.get(), new Item.Properties().group(BytesStructures.GROUP).food(new Food.Builder().hunger(2).fastToEat().saturation(0.5F).build()))),
+            BLACK_WALNUT_PLANKS = ITEMS.register("black_walnut_planks", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_PLANKS.get(), new Item.Properties().group(BytesStructures.GROUP)));
 }

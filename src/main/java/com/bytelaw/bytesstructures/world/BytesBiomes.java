@@ -1,6 +1,7 @@
 package com.bytelaw.bytesstructures.world;
 
 import com.bytelaw.bytesstructures.BytesStructures;
+import com.bytelaw.bytesstructures.config.BytesConfig;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.event.RegistryEvent;
@@ -19,7 +20,7 @@ public class BytesBiomes {
 
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public static void registerBiomesEvent(RegistryEvent.Register<Biome> event) {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(WALNUT_FOREST.get(), 4));
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(WALNUT_FOREST.get(), BytesConfig.walnutForestBiomeSpawnChance));
         BiomeManager.addSpawnBiome(WALNUT_FOREST.get());
     }
 }

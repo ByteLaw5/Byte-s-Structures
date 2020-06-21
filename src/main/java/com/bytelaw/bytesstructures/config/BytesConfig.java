@@ -18,7 +18,8 @@ public class BytesConfig {
         COMMON = specPair.getLeft();
     }
 
-    public static int testStructureSpawnChance;
+    public static int ancientLootStructureSpawnChance;
+    public static int walnutForestBiomeSpawnChance;
 
     @SubscribeEvent
     public static void bakeConfigEvent(ModConfig.ModConfigEvent configEvent) {
@@ -28,18 +29,26 @@ public class BytesConfig {
     }
 
     public static void bakeConfig() {
-        testStructureSpawnChance = COMMON.testStructureSpawnChance.get();
+        ancientLootStructureSpawnChance = COMMON.ancientLootStructureSpawnChance.get();
+        walnutForestBiomeSpawnChance = COMMON.walnutForestBiomeSpawnChance.get();
     }
 
     public static class CommonConfig {
-        public final ForgeConfigSpec.ConfigValue<Integer> testStructureSpawnChance;
+        public final ForgeConfigSpec.ConfigValue<Integer> ancientLootStructureSpawnChance;
+        public final ForgeConfigSpec.ConfigValue<Integer> walnutForestBiomeSpawnChance;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("structures");
-            testStructureSpawnChance = builder
+            ancientLootStructureSpawnChance = builder
                     .comment("Chance that the test structure will spawn")
                     .worldRestart() //Makes it that this will need a world restart
-                    .defineInRange("testStructureSpawnChance", 15, 0, 100);
+                    .defineInRange("ancientLootStructureSpawnChance", 15, 0, 100);
+            builder.pop();
+            builder.push("biomes");
+            walnutForestBiomeSpawnChance = builder
+                    .comment("Chance that the walnut forest biome will spawn")
+                    .worldRestart()
+                    .defineInRange("walnutForestBiomeSpawnChance", 10, 0, 100);
             builder.pop();
         }
     }
