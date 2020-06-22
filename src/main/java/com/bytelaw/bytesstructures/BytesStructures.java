@@ -16,6 +16,9 @@ import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.passive.GolemEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -35,7 +38,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -76,10 +78,8 @@ public class BytesStructures {
     private void loadComplete(FMLLoadCompleteEvent event) {
         DeferredWorkQueue.runLater(() -> {
             BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList())).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
-            ForgeRegistries.BIOMES.forEach(biome -> {
-                biome.addStructure(BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
-                biome.addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-            });
+            BytesBiomes.WALNUT_FOREST.get().addStructure(BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
+            BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
         });
         LOGGER.info("Completed loading!");
     }
@@ -88,6 +88,14 @@ public class BytesStructures {
         Entity entity = event.getEntity();
         if(entity instanceof MonsterEntity) {
             MonsterEntity monster = (MonsterEntity)entity;
+            NearestAttackableTargetGoal<GuardEntity> attackGuardGoal = new NearestAttackableTargetGoal<>(monster, GuardEntity.class, true);
+            monster.targetSelector.addGoal(7, attackGuardGoal);
+        } else if(entity instanceof GolemEntity && !(entity instanceof IronGolemEntity)) {
+            GolemEntity golem = (GolemEntity)entity;
+            NearestAttackableTargetGoal<GuardEntity> attackGuardGoal = new NearestAttackableTargetGoal<>(golem, GuardEntity.class, true);
+            golem.targetSelector.addGoal(7, attackGuardGoal);
+        } else if(entity instanceof SlimeEntity) {
+            SlimeEntity monster = (SlimeEntity)entity;
             NearestAttackableTargetGoal<GuardEntity> attackGuardGoal = new NearestAttackableTargetGoal<>(monster, GuardEntity.class, true);
             monster.targetSelector.addGoal(7, attackGuardGoal);
         }

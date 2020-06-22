@@ -49,7 +49,7 @@ public class BytesConfig {
             walnutForestBiomeSpawnChance = builder
                     .comment("Chance that the walnut forest biome will spawn")
                     .worldRestart()
-                    .defineInRange("walnutForestBiomeSpawnChance", 10, 0, 100);
+                    .defineInRange("walnutForestBiomeSpawnChance", 5, 0, 100);
             builder.pop();
         }
     }

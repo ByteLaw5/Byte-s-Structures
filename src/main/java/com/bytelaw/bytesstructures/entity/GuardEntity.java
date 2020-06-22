@@ -6,6 +6,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.GolemEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -30,6 +32,7 @@ public class GuardEntity extends CreatureEntity {
         targetSelector.addGoal(2, new HurtByTargetGoal(this).setCallsForHelp(GuardEntity.class));
         targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MonsterEntity.class, true));
+        targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, GolemEntity.class, 15, true, false, (entity) -> !(entity instanceof IronGolemEntity)));
     }
 
     private double getMovementSpeed() {

@@ -13,5 +13,7 @@
 
     "itemGroup.bytesitemgroup": "Byte's Structures",
 
-    "entity.bytesstructures.guard": "Guard"
+    "entity.bytesstructures.guard": "Guard",
+
+    "biome.bytesstructures.walnut_forest": "Walnut Forest"
 }

@@ -61,4 +61,12 @@ public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
             this.recalculateStructureSize();
         }
     }
+
+    public interface IMethodHolder {
+        void a();
+    }
+
+    public interface IMethodHolderReturns extends IMethodHolder {
+        void a(int a);
+    }
 }

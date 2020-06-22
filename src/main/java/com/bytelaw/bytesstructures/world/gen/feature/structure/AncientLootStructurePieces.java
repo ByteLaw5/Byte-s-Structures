@@ -29,10 +29,14 @@ import java.util.Random;
 
 public class AncientLootStructurePieces {
     private static final ResourceLocation MAIN_ROOM = BytesStructures.resource("ancient_loot_room"),
-                                    HALLWAY = BytesStructures.resource("ancient_hallway");
+                                    HALLWAY = BytesStructures.resource("ancient_hallway"),
+                                    ROOM_LEFT = BytesStructures.resource("ancient_room_left"),
+                                    ROOM_RIGHT = BytesStructures.resource("ancient_room_right");
     private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(
             MAIN_ROOM, new BlockPos(0, 1, 0),
-            HALLWAY, new BlockPos(0, 1, 0));
+            HALLWAY, new BlockPos(0, 1, 0),
+            ROOM_LEFT, new BlockPos(0, 1, 0),
+            ROOM_RIGHT, new BlockPos(0, 1, 0));
 
     public static void addStructurePieces(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random random) {
         int x = pos.getX();
@@ -42,13 +46,21 @@ public class AncientLootStructurePieces {
         BlockPos blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(new Piece(blockpos, manager, MAIN_ROOM, rotation));
 
-        rotationOffset = new BlockPos(-10, 0, 0).rotate(rotation);
+        rotationOffset = new BlockPos(-9, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(new Piece(blockpos, manager, HALLWAY, rotation));
 
-        rotationOffset = new BlockPos(10, 0, 0).rotate(rotation);
+        rotationOffset = new BlockPos(8, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(new Piece(blockpos, manager, HALLWAY, rotation));
+
+        rotationOffset = new BlockPos(16, 0, 0).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, ROOM_LEFT, rotation));
+
+        rotationOffset = new BlockPos(-16, 0, 0).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, ROOM_RIGHT, rotation));
 
         pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
