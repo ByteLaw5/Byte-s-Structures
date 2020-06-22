@@ -56,11 +56,11 @@ public class AncientLootStructurePieces {
 
         rotationOffset = new BlockPos(16, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
-        pieces.add(new Piece(blockpos, manager, ROOM_LEFT, rotation));
+        pieces.add(new Piece(blockpos, manager, ROOM_RIGHT, rotation));
 
         rotationOffset = new BlockPos(-16, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
-        pieces.add(new Piece(blockpos, manager, ROOM_RIGHT, rotation));
+        pieces.add(new Piece(blockpos, manager, ROOM_LEFT, rotation));
 
         pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
