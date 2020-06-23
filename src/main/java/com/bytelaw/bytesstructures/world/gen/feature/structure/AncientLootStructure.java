@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -63,6 +64,8 @@ public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
             boolean flag = start.getStructure().isPositionInStructure(world, pos);
             if(flag)
                 event.getList().addAll(start.getStructure().getSpawnList());
+        } else {
+            System.out.println("Start null!");
         }
     }
 
@@ -77,11 +80,15 @@ public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
 
-            int y = generator.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int y = getYForStart(generator, chunkX, chunkZ);
             BlockPos pos = new BlockPos(x, y, z);
 
             AncientLootStructurePieces.addStructurePieces(templateManagerIn, pos, rotation, this.components, this.rand);
             this.recalculateStructureSize();
+        }
+
+        private static int getYForStart(ChunkGenerator<?> generator, int chunkX, int chunkZ) {
+            return MathHelper.clamp(generator.func_222531_c(chunkX, chunkZ, Heightmap.Type.WORLD_SURFACE_WG), 35, 70) - 20;
         }
     }
 }
