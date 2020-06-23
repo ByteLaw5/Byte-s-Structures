@@ -1,6 +1,7 @@
 package com.bytelaw.bytesstructures.world.gen.feature.structure;
 
 import com.bytelaw.bytesstructures.BytesStructures;
+import com.bytelaw.bytesstructures.item.BytesLootTables;
 import com.bytelaw.bytesstructures.world.gen.feature.BytesFeatures;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Blocks;
@@ -21,7 +22,6 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.storage.loot.LootTables;
 
 import java.util.List;
 import java.util.Map;
@@ -29,12 +29,14 @@ import java.util.Random;
 
 public class AncientLootStructurePieces {
     private static final ResourceLocation MAIN_ROOM = BytesStructures.resource("ancient_loot_room"),
-                                    HALLWAY = BytesStructures.resource("ancient_hallway"),
+                                    HALLWAY_X = BytesStructures.resource("ancient_hallway_x"),
+                                    HALLWAY_Z = BytesStructures.resource("ancient_hallway_z"),
                                     ROOM_LEFT = BytesStructures.resource("ancient_room_left"),
                                     ROOM_RIGHT = BytesStructures.resource("ancient_room_right");
     private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(
             MAIN_ROOM, new BlockPos(0, 1, 0),
-            HALLWAY, new BlockPos(0, 1, 0),
+            HALLWAY_X, new BlockPos(0, 1, 0),
+            HALLWAY_Z, new BlockPos(0, 1, 0),
             ROOM_LEFT, new BlockPos(0, 1, 0),
             ROOM_RIGHT, new BlockPos(0, 1, 0));
 
@@ -48,11 +50,11 @@ public class AncientLootStructurePieces {
 
         rotationOffset = new BlockPos(-9, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
-        pieces.add(new Piece(blockpos, manager, HALLWAY, rotation));
+        pieces.add(new Piece(blockpos, manager, HALLWAY_X, rotation));
 
         rotationOffset = new BlockPos(8, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
-        pieces.add(new Piece(blockpos, manager, HALLWAY, rotation));
+        pieces.add(new Piece(blockpos, manager, HALLWAY_X, rotation));
 
         rotationOffset = new BlockPos(16, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
@@ -61,6 +63,14 @@ public class AncientLootStructurePieces {
         rotationOffset = new BlockPos(-16, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(new Piece(blockpos, manager, ROOM_LEFT, rotation));
+
+//        rotationOffset = new BlockPos(-16, 0, -16).rotate(rotation);
+//        blockpos = rotationOffset.add(x, pos.getY(), z);
+//        pieces.add(new Piece(blockpos, manager, HALLWAY_Z, rotation));
+//
+//        rotationOffset = new BlockPos(16, 0, 16).rotate(rotation);
+//        blockpos = rotationOffset.add(x, pos.getY(), z);
+//        pieces.add(new Piece(blockpos, manager, HALLWAY_Z, rotation));
 
         pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
@@ -111,7 +121,7 @@ public class AncientLootStructurePieces {
                 worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
                 TileEntity te = worldIn.getTileEntity(pos);
                 if(te instanceof ChestTileEntity) {
-                    ((ChestTileEntity)te).setLootTable(LootTables.CHESTS_BURIED_TREASURE, rand.nextLong());
+                    ((ChestTileEntity)te).setLootTable(BytesLootTables.CHESTS_ANCIENT_LOOT, rand.nextLong());
                 }
             }
         }
