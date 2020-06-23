@@ -3,15 +3,21 @@ package com.bytelaw.bytesstructures.item;
 import com.bytelaw.bytesstructures.BytesStructures;
 import com.bytelaw.bytesstructures.block.BytesBlocks;
 import com.bytelaw.bytesstructures.entity.BytesEntities;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+@Mod.EventBusSubscriber(modid=BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
 public class BytesItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BytesStructures.MODID);
 
@@ -41,4 +47,9 @@ public class BytesItems {
                     return tagIn == ItemTags.PLANKS;
                 }
             });
+
+    @SubscribeEvent(priority=EventPriority.LOWEST)
+    public static void onItemRegister(RegistryEvent.Register<Item> event) {
+        ComposterBlock.CHANCES.put(BLACK_WALNUT_SAPLING.get(), 0.3F);
+    }
 }
