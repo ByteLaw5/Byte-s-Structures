@@ -46,7 +46,8 @@ public class BytesItems {
                 public boolean isIn(Tag<Item> tagIn) {
                     return tagIn == ItemTags.PLANKS;
                 }
-            });
+            }),
+            SLIMY_PATH = ITEMS.register("slimy_path", () -> new BlockItem(BytesBlocks.SLIMY_PATH.get(), new Item.Properties().group(BytesStructures.GROUP)));
 
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public static void onItemRegister(RegistryEvent.Register<Item> event) {

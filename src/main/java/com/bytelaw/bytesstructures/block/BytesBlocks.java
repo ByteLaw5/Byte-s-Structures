@@ -67,5 +67,6 @@ public class BytesBlocks {
 
                     return 20;
                 }
-            });
+            }),
+            SLIMY_PATH = BLOCKS.register("slimy_path", () -> new SlimyPathBlock(Block.Properties.create(Material.CLAY, MaterialColor.GREEN).sound(SoundType.SLIME).hardnessAndResistance(0.1F).notSolid().noDrops().doesNotBlockMovement()));
 }

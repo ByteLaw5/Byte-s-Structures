@@ -16,6 +16,7 @@ import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -40,8 +41,7 @@ public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
         return Start::new;
     }
 
-    @Override
-    public List<Biome.SpawnListEntry> getSpawnList() {
+    public static List<Biome.SpawnListEntry> getSpawns() {
         return Lists.newArrayList(new Biome.SpawnListEntry(BytesEntities.GUARD.get(), 10, 1, 5));
     }
 
@@ -59,13 +59,13 @@ public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
     public static void potentialSpawns(WorldEvent.PotentialSpawns event) {
         IWorld world = event.getWorld();
         BlockPos pos = event.getPos();
-        StructureStart start = world.getChunk(pos).getStructureStart(STRUCTURE_NAME);
-        if(start != null) {
-            boolean flag = start.getStructure().isPositionInStructure(world, pos);
-            if(flag)
-                event.getList().addAll(start.getStructure().getSpawnList());
-        } else {
-            System.out.println("Start null!");
+        if(world instanceof ServerWorld) {
+            BlockPos pos1 = ((ServerWorld)world).findNearestStructure(STRUCTURE_NAME, pos, 500, false);
+            if(pos1 != null) {
+                event.getList().addAll(AncientLootStructure.getSpawns());
+            } else {
+                System.out.println("position null!");
+            }
         }
     }
 

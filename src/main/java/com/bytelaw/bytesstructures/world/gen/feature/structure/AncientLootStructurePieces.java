@@ -27,12 +27,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static com.bytelaw.bytesstructures.BytesStructures.resource;
+
 public class AncientLootStructurePieces {
-    private static final ResourceLocation MAIN_ROOM = BytesStructures.resource("ancient_loot_room"),
-                                    HALLWAY_X = BytesStructures.resource("ancient_hallway_x"),
-                                    HALLWAY_Z = BytesStructures.resource("ancient_hallway_z"),
-                                    ROOM_LEFT = BytesStructures.resource("ancient_room_left"),
-                                    ROOM_RIGHT = BytesStructures.resource("ancient_room_right");
+    private static final ResourceLocation MAIN_ROOM = resource("ancient_loot_room"),
+                                    HALLWAY_X = resource("ancient_hallway_x"),
+                                    HALLWAY_Z = resource("ancient_hallway_z"),
+                                    ROOM_LEFT = resource("ancient_room_left"),
+                                    ROOM_RIGHT = resource("ancient_room_right");
     private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(
             MAIN_ROOM, new BlockPos(0, 1, 0),
             HALLWAY_X, new BlockPos(0, 1, 0),

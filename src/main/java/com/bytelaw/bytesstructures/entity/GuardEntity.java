@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,6 +33,7 @@ public class GuardEntity extends CreatureEntity {
         targetSelector.addGoal(2, new HurtByTargetGoal(this).setCallsForHelp(GuardEntity.class));
         targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, MonsterEntity.class, true));
+        targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, SlimeEntity.class, true));
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, GolemEntity.class, 15, true, false, (entity) -> !(entity instanceof IronGolemEntity)));
     }
 
@@ -44,11 +46,11 @@ public class GuardEntity extends CreatureEntity {
         super.registerAttributes();
         getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED);
         getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-        getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
-        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
+        getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.635D);
         getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
-        getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
-        getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(0.5D);
+        getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(7.0D);
+        getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1.0D);
         getAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(1.0D);
         getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50.0D);
     }
