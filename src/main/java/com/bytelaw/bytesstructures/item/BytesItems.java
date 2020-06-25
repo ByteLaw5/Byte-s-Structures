@@ -47,7 +47,8 @@ public class BytesItems {
                     return tagIn == ItemTags.PLANKS;
                 }
             }),
-            SLIMY_PATH = ITEMS.register("slimy_path", () -> new BlockItem(BytesBlocks.SLIMY_PATH.get(), new Item.Properties().group(BytesStructures.GROUP)));
+            SLIMY_PATH = ITEMS.register("slimy_path", () -> new BlockItem(BytesBlocks.SLIMY_PATH.get(), new Item.Properties().group(BytesStructures.GROUP))),
+            PURPUR_DOOR = ITEMS.register("purpur_door", () -> new BlockItem(BytesBlocks.PURPUR_DOOR.get(), new Item.Properties().group(BytesStructures.GROUP)));
 
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public static void onItemRegister(RegistryEvent.Register<Item> event) {

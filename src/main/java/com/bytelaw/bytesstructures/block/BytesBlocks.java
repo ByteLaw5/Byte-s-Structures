@@ -68,5 +68,6 @@ public class BytesBlocks {
                     return 20;
                 }
             }),
-            SLIMY_PATH = BLOCKS.register("slimy_path", () -> new SlimyPathBlock(Block.Properties.create(Material.CLAY, MaterialColor.GREEN).sound(SoundType.SLIME).hardnessAndResistance(0.1F).notSolid().noDrops().doesNotBlockMovement()));
+            SLIMY_PATH = BLOCKS.register("slimy_path", () -> new SlimyPathBlock(Block.Properties.create(Material.CLAY, MaterialColor.GREEN).sound(SoundType.SLIME).hardnessAndResistance(0.1F).notSolid().noDrops().doesNotBlockMovement())),
+            PURPUR_DOOR = BLOCKS.register("purpur_door", () -> new ModDoorBlock(Block.Properties.create(Material.ROCK, MaterialColor.MAGENTA).hardnessAndResistance(1.5F, 6.0F)));
 }

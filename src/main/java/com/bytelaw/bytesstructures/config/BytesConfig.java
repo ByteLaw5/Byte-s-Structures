@@ -22,6 +22,7 @@ public class BytesConfig {
     public static int ancientLootStructureSpawnChance;
     public static int walnutForestBiomeSpawnChance;
     public static int slimeyDungeonSpawnChance;
+    public static int endHomeSpawnChance;
 
     @SubscribeEvent
     public static void bakeConfigEvent(ModConfig.ModConfigEvent configEvent) {
@@ -34,23 +35,29 @@ public class BytesConfig {
         ancientLootStructureSpawnChance = COMMON.ancientLootStructureSpawnChance.get();
         walnutForestBiomeSpawnChance = COMMON.walnutForestBiomeSpawnChance.get();
         slimeyDungeonSpawnChance = COMMON.slimeyDungeonSpawnChance.get();
+        endHomeSpawnChance = COMMON.endHomeSpawnChance.get();
     }
 
     public static class CommonConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> ancientLootStructureSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> walnutForestBiomeSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> slimeyDungeonSpawnChance;
+        public final ForgeConfigSpec.ConfigValue<Integer> endHomeSpawnChance;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             builder.push("structures");
             ancientLootStructureSpawnChance = builder
-                    .comment("Chance that the structure will spawn")
+                    .comment("Chance that the ancient loot structure will spawn")
                     .worldRestart() //Makes it that this will need a world restart
                     .defineInRange("ancientLootStructureSpawnChance", 15, 0, 100);
             slimeyDungeonSpawnChance = builder
                     .comment("Chance that the slimey dungeon will spawn")
                     .worldRestart()
                     .defineInRange("slimeyDungeonSpawnChance", 15, 0, 100);
+            endHomeSpawnChance = builder
+                    .comment("Chance that the end home will spawn")
+                    .worldRestart()
+                    .defineInRange("endHomeSpawnChance", 15, 0, 100);
             builder.pop();
             builder.push("biomes");
             walnutForestBiomeSpawnChance = builder

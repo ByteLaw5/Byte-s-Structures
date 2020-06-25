@@ -11,14 +11,14 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
-public class SlimeyDungeonStructure extends ScatteredStructure<ChanceConfig> {
-    public SlimeyDungeonStructure() {
+public class EndHomeStructure extends ScatteredStructure<ChanceConfig> {
+    public EndHomeStructure() {
         super(ChanceConfig::deserialize);
     }
 
     @Override
     protected int getSeedModifier() {
-        return 623752567;
+        return 214878353;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SlimeyDungeonStructure extends ScatteredStructure<ChanceConfig> {
 
     @Override
     public String getStructureName() {
-        return "bytesstructures:slimey_dungeon";
+        return "bytesstructures:end_home";
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SlimeyDungeonStructure extends ScatteredStructure<ChanceConfig> {
             int y = generator.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
             BlockPos pos = new BlockPos(x, y, z);
 
-            SlimeyDungeonPieces.addStructurePieces(templateManagerIn, pos, rotation, components, rand);
+            EndHomePieces.addStructurePieces(templateManagerIn, pos, rotation, components, rand);
             this.recalculateStructureSize();
         }
     }

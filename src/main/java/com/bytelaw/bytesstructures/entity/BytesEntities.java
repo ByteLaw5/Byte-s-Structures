@@ -17,9 +17,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BytesEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, BytesStructures.MODID);
 
-    public static final RegistryObject<EntityType<GuardEntity>> GUARD = register("guard", EntityType.Builder.create(GuardEntity::new, EntityClassification.CREATURE));
+    public static final RegistryObject<EntityType<GuardEntity>> GUARD = register("guard", GuardEntity::new, EntityClassification.CREATURE);
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factory, EntityClassification classification) {
+        EntityType.Builder<T> builder = EntityType.Builder.create(factory, classification);
         return ENTITIES.register(name, () -> builder.build(BytesStructures.resource(name).toString()));
     }
 

@@ -3,7 +3,6 @@ package com.bytelaw.bytesstructures.world.gen.feature.structure;
 import com.bytelaw.bytesstructures.BytesStructures;
 import com.bytelaw.bytesstructures.entity.BytesEntities;
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -22,14 +21,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
-import java.util.function.Function;
 
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID)
 public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
     public static final String STRUCTURE_NAME = "bytesstructures:ancient_loot";
 
-    public AncientLootStructure(Function<Dynamic<?>, ? extends ChanceConfig> configFactoryIn) {
-        super(configFactoryIn);
+    public AncientLootStructure() {
+        super(ChanceConfig::deserialize);
     }
 
     protected int getSeedModifier() {
@@ -63,8 +61,6 @@ public class AncientLootStructure extends ScatteredStructure<ChanceConfig> {
             BlockPos pos1 = ((ServerWorld)world).findNearestStructure(STRUCTURE_NAME, pos, 500, false);
             if(pos1 != null) {
                 event.getList().addAll(AncientLootStructure.getSpawns());
-            } else {
-                System.out.println("position null!");
             }
         }
     }

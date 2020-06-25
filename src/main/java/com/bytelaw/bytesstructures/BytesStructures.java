@@ -83,6 +83,12 @@ public class BytesStructures {
             BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
             Biomes.SWAMP.addStructure(BytesFeatures.SLIMEY_DUNGEON.get().withConfiguration(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
             Biomes.SWAMP.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.SLIMEY_DUNGEON.get().withConfiguration(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            Biomes.END_MIDLANDS.addStructure(BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_MIDLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            Biomes.END_HIGHLANDS.addStructure(BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_HIGHLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            Biomes.END_BARRENS.addStructure(BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_BARRENS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
         });
         LOGGER.info("Completed loading!");
     }
