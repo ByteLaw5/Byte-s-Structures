@@ -2,6 +2,7 @@ package com.bytelaw.bytesstructures;
 
 import com.bytelaw.bytesstructures.block.BytesBlocks;
 import com.bytelaw.bytesstructures.block.tree.BytesTreeDecorators;
+import com.bytelaw.bytesstructures.block.tree.WalnutTreeDecorator;
 import com.bytelaw.bytesstructures.client.Client;
 import com.bytelaw.bytesstructures.config.BytesConfig;
 import com.bytelaw.bytesstructures.entity.BytesEntities;
@@ -73,12 +74,14 @@ public class BytesStructures {
 
         if(FMLEnvironment.dist == Dist.CLIENT)
             modBus.register(Client.class);
+
+        LOGGER.info("Mod construction complete");
     }
 
     @SuppressWarnings("deprecation")
     private void loadComplete(FMLLoadCompleteEvent event) {
         DeferredWorkQueue.runLater(() -> {
-            BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList())).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
+            BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList(new WalnutTreeDecorator()))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
             BytesBiomes.WALNUT_FOREST.get().addStructure(BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
             BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, BytesFeatures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
             Biomes.SWAMP.addStructure(BytesFeatures.SLIMEY_DUNGEON.get().withConfiguration(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
@@ -90,7 +93,7 @@ public class BytesStructures {
             Biomes.END_BARRENS.addStructure(BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
             Biomes.END_BARRENS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, BytesFeatures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
         });
-        LOGGER.info("Completed loading!");
+        LOGGER.info("Completed loading");
     }
 
     private void onEntityJoinWorld(EntityJoinWorldEvent event) {
@@ -113,7 +116,7 @@ public class BytesStructures {
     @Nonnull
     @MethodsReturnNonnullByDefault
     @ParametersAreNonnullByDefault
-    public static ResourceLocation resource(String path) {
+    public static ResourceLocation resource(@Nonnull String path) {
         return new ResourceLocation(MODID, path);
     }
 }

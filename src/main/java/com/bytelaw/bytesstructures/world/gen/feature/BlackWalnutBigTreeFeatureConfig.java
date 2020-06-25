@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BlackWalnutBigTreeFeatureConfig extends HugeTreeFeatureConfig {
     public BlackWalnutBigTreeFeatureConfig(List<TreeDecorator> decoratorsIn) {
-        super(new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LOG.get().getDefaultState()), new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LEAVES.get().getDefaultState()), decoratorsIn, 5, 5, 5);
+        super(new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LOG.get().getDefaultState()), new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LEAVES.get().getDefaultState()), decoratorsIn, 8, 4, 8);
     }
 
     public static <T> BlackWalnutBigTreeFeatureConfig deserialize(Dynamic<T> dynamic) {

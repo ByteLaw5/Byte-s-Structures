@@ -21,6 +21,10 @@ public class BytesEntities {
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factory, EntityClassification classification) {
         EntityType.Builder<T> builder = EntityType.Builder.create(factory, classification);
+        return register(name, builder);
+    }
+
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
         return ENTITIES.register(name, () -> builder.build(BytesStructures.resource(name).toString()));
     }
 
