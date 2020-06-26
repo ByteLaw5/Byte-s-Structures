@@ -74,7 +74,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'mytutorial', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'bytesstructures', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             environment 'target', 'fmluserdevdata'
 
