@@ -6,7 +6,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 
 public class ChanceConfig implements IFeatureConfig {
     public final int chance;
-    public static final Codec<ChanceConfig> CONFIG = RecordCodecBuilder.create((instance) -> instance.group(Codec.INT.fieldOf("chance").forGetter((config) -> config.chance)).apply(instance, ChanceConfig::new));
+    public static final Codec<ChanceConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Codec.INT.fieldOf("chance").forGetter((config) -> config.chance)).apply(instance, ChanceConfig::new));
 
     public ChanceConfig(int chance) {
         this.chance = chance;

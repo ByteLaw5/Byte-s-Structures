@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class EndHomeStructure extends Structure<ChanceConfig> {
     public EndHomeStructure() {
-        super(ChanceConfig.CONFIG);
+        super(ChanceConfig.CODEC);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class EndHomeStructure extends Structure<ChanceConfig> {
             int y = p_230364_1_.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
             BlockPos pos = new BlockPos(x, y, z);
 
-            if(p_230364_6_.chance > rand.nextInt(150))
+            if(p_230364_6_.chance > rand.nextInt(1000))
                 return;
 
             EndHomePieces.addStructurePieces(p_230364_2_, pos, rotation, components, rand);

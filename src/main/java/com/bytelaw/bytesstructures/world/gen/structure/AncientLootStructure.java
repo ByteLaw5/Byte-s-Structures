@@ -23,11 +23,7 @@ public class AncientLootStructure extends Structure<ChanceConfig> {
     public static final String STRUCTURE_NAME = "bytesstructures:ancient_loot";
 
     public AncientLootStructure() {
-        super(ChanceConfig.CONFIG);
-    }
-
-    protected int getSeedModifier() {
-        return 832236751;
+        super(ChanceConfig.CODEC);
     }
 
     @Override
@@ -67,7 +63,7 @@ public class AncientLootStructure extends Structure<ChanceConfig> {
             int y = getYForStart(p_230364_1_, p_230364_3_, p_230364_4_);
             BlockPos pos = new BlockPos(x, y, z);
 
-            if(p_230364_6_.chance > rand.nextInt(150))
+            if(p_230364_6_.chance > rand.nextInt(1000))
                 return;
 
             AncientLootStructurePieces.addStructurePieces(p_230364_2_, pos, rotation, this.components, this.rand);
