@@ -22,7 +22,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,11 +77,11 @@ public class BytesStructures {
     private void loadComplete(FMLLoadCompleteEvent event) {
         DeferredWorkQueue.runLater(() -> {
 //          BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList(new WalnutTreeDecorator()))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
-            BytesBiomes.WALNUT_FOREST.get().func_235063_a_(new StructureFeature<>(BytesFeatureStructures.ANCIENT_LOOT_STRUCTURE.get(), new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
-            Biomes.SWAMP.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.SLIMEY_DUNGEON.get(), new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
-            Biomes.END_BARRENS.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.END_HOME.get(), new ChanceConfig(BytesConfig.endHomeSpawnChance)));
-            Biomes.END_HIGHLANDS.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.END_HOME.get(), new ChanceConfig(BytesConfig.endHomeSpawnChance)));
-            Biomes.END_MIDLANDS.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.END_HOME.get(), new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            BytesBiomes.WALNUT_FOREST.get().func_235063_a_(BytesFeatureStructures.ANCIENT_LOOT_STRUCTURE.get().func_236391_a_(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
+            Biomes.SWAMP.func_235063_a_(BytesFeatureStructures.SLIMEY_DUNGEON.get().func_236391_a_(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
+            Biomes.END_BARRENS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_HIGHLANDS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_MIDLANDS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
         });
         LOGGER.info("Completed loading");
     }

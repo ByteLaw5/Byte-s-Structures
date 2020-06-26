@@ -16,7 +16,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 
@@ -53,7 +52,6 @@ public class GuardEntity extends CreatureEntity {
                 .func_233815_a_(Attributes.field_233826_i_, 7.0D) //Armor
                 .func_233815_a_(Attributes.field_233827_j_, 1.0D) //Armor Toughness
                 .func_233815_a_(Attributes.field_233825_h_, 1.0D) //Attack Speed
-                .func_233815_a_(ForgeMod.SWIM_SPEED.get(), 1.0D)
                 .func_233813_a_();
     }
 
