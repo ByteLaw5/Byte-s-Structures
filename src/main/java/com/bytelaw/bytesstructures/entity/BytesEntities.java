@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
 public class BytesEntities {
-    public static final Map<EntityType<? extends LivingEntity>, Supplier<AttributeModifierMap>> ATTRIBUTES = Maps.newHashMap();
+    private static final Map<EntityType<? extends LivingEntity>, Supplier<AttributeModifierMap>> ATTRIBUTES = Maps.newHashMap();
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, BytesStructures.MODID);
 
     public static final RegistryObject<EntityType<GuardEntity>> GUARD = register("guard", GuardEntity::new, EntityClassification.CREATURE, GuardEntity::getAttributes);

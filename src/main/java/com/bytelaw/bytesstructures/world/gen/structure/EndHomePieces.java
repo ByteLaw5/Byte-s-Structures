@@ -1,7 +1,11 @@
-package com.bytelaw.bytesstructures.world.gen.feature.structure;
+package com.bytelaw.bytesstructures.world.gen.structure;
 
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.block.Blocks;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -18,16 +22,15 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import static com.bytelaw.bytesstructures.BytesStructures.resource;
 
-public class SlimeyDungeonPieces {
-    private static final ResourceLocation SLIMEY_DUNGEON = resource("slimey_dungeon");
-    private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(SLIMEY_DUNGEON, new BlockPos(0, 1, 0));
+public class EndHomePieces {
+    private static final ResourceLocation END_HOME = resource("end_home");
+    private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(END_HOME, new BlockPos(0, 1, 0));
 
     public static void addStructurePieces(TemplateManager manager, BlockPos origin, Rotation rotation, List<StructurePiece> pieces, Random random) {
         int x = origin.getX();
@@ -35,7 +38,7 @@ public class SlimeyDungeonPieces {
 
         BlockPos rotationOffset = BlockPos.ZERO.rotate(rotation);
         BlockPos pos = rotationOffset.add(x, origin.getY(), z);
-        pieces.add(new Piece(pos, manager, SLIMEY_DUNGEON, rotation));
+        pieces.add(new Piece(pos, manager, END_HOME, rotation));
 
         pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
@@ -45,7 +48,7 @@ public class SlimeyDungeonPieces {
         private final Rotation rotation;
 
         public Piece(BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
-            super(BytesFeatureStructures.SLIMEY_DUNGEON_PIECE, 0);
+            super(BytesFeatureStructures.END_HOME_PIECE, 0);
             this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             this.templateLocation = location;
             this.rotation = rotation;
@@ -53,7 +56,7 @@ public class SlimeyDungeonPieces {
         }
 
         public Piece(TemplateManager manager, CompoundNBT nbt) {
-            super(BytesFeatureStructures.SLIMEY_DUNGEON_PIECE, nbt);
+            super(BytesFeatureStructures.END_HOME_PIECE, nbt);
             this.templateLocation = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
             setup(manager);
@@ -81,6 +84,14 @@ public class SlimeyDungeonPieces {
         }
 
         @Override
-        protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {}
+        protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
+            if("chest".equals(function)) {
+                worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
+                TileEntity te = worldIn.getTileEntity(pos);
+                if(te instanceof ChestTileEntity) {
+                    ((ChestTileEntity)te).setLootTable(LootTables.CHESTS_END_CITY_TREASURE, rand.nextLong());
+                }
+            }
+        }
     }
 }

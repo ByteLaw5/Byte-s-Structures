@@ -1,4 +1,4 @@
-package com.bytelaw.bytesstructures.world.gen.feature.structure;
+package com.bytelaw.bytesstructures.world.gen.structure;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -1,8 +1,8 @@
-package com.bytelaw.bytesstructures.world.gen.feature.structure;
+package com.bytelaw.bytesstructures.world.gen.structure;
 
+import com.bytelaw.bytesstructures.item.BytesLootTables;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Blocks;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -22,23 +22,57 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import static com.bytelaw.bytesstructures.BytesStructures.resource;
 
-public class EndHomePieces {
-    private static final ResourceLocation END_HOME = resource("end_home");
-    private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(END_HOME, new BlockPos(0, 1, 0));
+public class AncientLootStructurePieces {
+    private static final ResourceLocation MAIN_ROOM = resource("ancient_loot_room"),
+                                    HALLWAY_X = resource("ancient_hallway_x"),
+                                    HALLWAY_Z = resource("ancient_hallway_z"),
+                                    ROOM_LEFT = resource("ancient_room_left"),
+                                    ROOM_RIGHT = resource("ancient_room_right");
+    private static final Map<ResourceLocation, BlockPos> OFFSET_MAP = ImmutableMap.of(
+            MAIN_ROOM, new BlockPos(0, 1, 0),
+            HALLWAY_X, new BlockPos(0, 1, 0),
+            HALLWAY_Z, new BlockPos(0, 1, 0),
+            ROOM_LEFT, new BlockPos(0, 1, 0),
+            ROOM_RIGHT, new BlockPos(0, 1, 0));
 
-    public static void addStructurePieces(TemplateManager manager, BlockPos origin, Rotation rotation, List<StructurePiece> pieces, Random random) {
-        int x = origin.getX();
-        int z = origin.getZ();
+    public static void addStructurePieces(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random random) {
+        int x = pos.getX();
+        int z = pos.getZ();
 
-        BlockPos rotationOffset = BlockPos.ZERO.rotate(rotation);
-        BlockPos pos = rotationOffset.add(x, origin.getY(), z);
-        pieces.add(new Piece(pos, manager, END_HOME, rotation));
+        BlockPos rotationOffset = new BlockPos(0, 0, 0).rotate(rotation);
+        BlockPos blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, MAIN_ROOM, rotation));
+
+        rotationOffset = new BlockPos(-9, 0, 0).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, HALLWAY_X, rotation));
+
+        rotationOffset = new BlockPos(8, 0, 0).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, HALLWAY_X, rotation));
+
+        rotationOffset = new BlockPos(16, 0, 0).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, ROOM_RIGHT, rotation));
+
+        rotationOffset = new BlockPos(-16, 0, 0).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(new Piece(blockpos, manager, ROOM_LEFT, rotation));
+
+//        rotationOffset = new BlockPos(-16, 0, -16).rotate(rotation);
+//        blockpos = rotationOffset.add(x, pos.getY(), z);
+//        pieces.add(new Piece(blockpos, manager, HALLWAY_Z, rotation));
+//
+//        rotationOffset = new BlockPos(16, 0, 16).rotate(rotation);
+//        blockpos = rotationOffset.add(x, pos.getY(), z);
+//        pieces.add(new Piece(blockpos, manager, HALLWAY_Z, rotation));
 
         pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
@@ -48,7 +82,7 @@ public class EndHomePieces {
         private final Rotation rotation;
 
         public Piece(BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
-            super(BytesFeatureStructures.END_HOME_PIECE, 0);
+            super(BytesFeatureStructures.ANCIENT_LOOT_ROOM, 0);
             this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             this.templateLocation = location;
             this.rotation = rotation;
@@ -56,16 +90,10 @@ public class EndHomePieces {
         }
 
         public Piece(TemplateManager manager, CompoundNBT nbt) {
-            super(BytesFeatureStructures.END_HOME_PIECE, nbt);
+            super(BytesFeatureStructures.ANCIENT_LOOT_ROOM, nbt);
             this.templateLocation = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
             setup(manager);
-        }
-
-        private void setup(TemplateManager manager) {
-            Template template = manager.getTemplateDefaulted(templateLocation);
-            PlacementSettings settings = new PlacementSettings().setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(BlockPos.ZERO).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            setup(template, this.templatePosition, settings);
         }
 
         @Override
@@ -73,6 +101,12 @@ public class EndHomePieces {
             super.readAdditional(tagCompound);
             tagCompound.putString("Template", this.templateLocation.toString());
             tagCompound.putString("Rotation", this.rotation.name());
+        }
+
+        private void setup(TemplateManager manager) {
+            Template template = manager.getTemplateDefaulted(templateLocation);
+            PlacementSettings settings = new PlacementSettings().setRotation(rotation).setMirror(Mirror.NONE).setCenterOffset(BlockPos.ZERO).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            setup(template, this.templatePosition, settings);
         }
 
         @Override
@@ -89,7 +123,7 @@ public class EndHomePieces {
                 worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
                 TileEntity te = worldIn.getTileEntity(pos);
                 if(te instanceof ChestTileEntity) {
-                    ((ChestTileEntity)te).setLootTable(LootTables.CHESTS_END_CITY_TREASURE, rand.nextLong());
+                    ((ChestTileEntity)te).setLootTable(BytesLootTables.CHESTS_ANCIENT_LOOT, rand.nextLong());
                 }
             }
         }

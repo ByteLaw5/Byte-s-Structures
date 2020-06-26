@@ -1,10 +1,11 @@
-package com.bytelaw.bytesstructures.world.gen.feature.structure;
+package com.bytelaw.bytesstructures.world.gen.structure;
 
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
@@ -25,6 +26,11 @@ public class EndHomeStructure extends Structure<ChanceConfig> {
         return "bytesstructures:end_home";
     }
 
+    @Override
+    public GenerationStage.Decoration func_236396_f_() {
+        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+    }
+
     public static class Start extends StructureStart<ChanceConfig> {
         public Start(Structure<ChanceConfig> p_i225876_1_, int p_i225876_2_, int p_i225876_3_, MutableBoundingBox p_i225876_4_, int p_i225876_5_, long p_i225876_6_) {
             super(p_i225876_1_, p_i225876_2_, p_i225876_3_, p_i225876_4_, p_i225876_5_, p_i225876_6_);
@@ -38,6 +44,9 @@ public class EndHomeStructure extends Structure<ChanceConfig> {
 
             int y = p_230364_1_.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
             BlockPos pos = new BlockPos(x, y, z);
+
+            if(p_230364_6_.chance > rand.nextInt(150))
+                return;
 
             EndHomePieces.addStructurePieces(p_230364_2_, pos, rotation, components, rand);
             this.recalculateStructureSize();

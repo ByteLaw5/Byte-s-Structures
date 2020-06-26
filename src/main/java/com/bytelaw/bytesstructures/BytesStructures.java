@@ -9,7 +9,8 @@ import com.bytelaw.bytesstructures.entity.GuardEntity;
 import com.bytelaw.bytesstructures.item.BytesItems;
 import com.bytelaw.bytesstructures.world.BytesBiomes;
 import com.bytelaw.bytesstructures.world.gen.feature.BytesFeatures;
-import com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures;
+import com.bytelaw.bytesstructures.world.gen.structure.BytesFeatureStructures;
+import com.bytelaw.bytesstructures.world.gen.structure.ChanceConfig;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -20,6 +21,8 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -74,17 +77,12 @@ public class BytesStructures {
     @SuppressWarnings("deprecation")
     private void loadComplete(FMLLoadCompleteEvent event) {
         DeferredWorkQueue.runLater(() -> {
-//            BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList(new WalnutTreeDecorator()))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
-//            BytesBiomes.WALNUT_FOREST.get().func_235063_a_(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
-//            BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.UNDERGROUND_STRUCTURES, com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.ANCIENT_LOOT_STRUCTURE.get().withConfiguration(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-//            Biomes.SWAMP.func_235063_a_(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.SLIMEY_DUNGEON.get().withConfiguration(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
-//            Biomes.SWAMP.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.SLIMEY_DUNGEON.get().withConfiguration(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-//            Biomes.END_MIDLANDS.func_235063_a_(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
-//            Biomes.END_MIDLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-//            Biomes.END_HIGHLANDS.func_235063_a_(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
-//            Biomes.END_HIGHLANDS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-//            Biomes.END_BARRENS.func_235063_a_(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
-//            Biomes.END_BARRENS.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, com.bytelaw.bytesstructures.world.gen.feature.structure.BytesFeatureStructures.END_HOME.get().withConfiguration(new ChanceConfig(BytesConfig.endHomeSpawnChance)).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+//          BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutBigTreeFeatureConfig(Lists.newArrayList(new WalnutTreeDecorator()))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
+            BytesBiomes.WALNUT_FOREST.get().func_235063_a_(new StructureFeature<>(BytesFeatureStructures.ANCIENT_LOOT_STRUCTURE.get(), new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
+            Biomes.SWAMP.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.SLIMEY_DUNGEON.get(), new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
+            Biomes.END_BARRENS.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.END_HOME.get(), new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_HIGHLANDS.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.END_HOME.get(), new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.END_MIDLANDS.func_235063_a_(new StructureFeature<>(BytesFeatureStructures.END_HOME.get(), new ChanceConfig(BytesConfig.endHomeSpawnChance)));
         });
         LOGGER.info("Completed loading");
     }
