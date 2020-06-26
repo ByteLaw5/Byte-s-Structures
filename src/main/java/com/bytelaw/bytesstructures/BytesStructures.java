@@ -1,6 +1,7 @@
 package com.bytelaw.bytesstructures;
 
 import com.bytelaw.bytesstructures.block.BytesBlocks;
+import com.bytelaw.bytesstructures.block.trees.BytesTreeDecorators;
 import com.bytelaw.bytesstructures.client.Client;
 import com.bytelaw.bytesstructures.config.BytesConfig;
 import com.bytelaw.bytesstructures.entity.BytesEntities;
@@ -58,7 +59,7 @@ public class BytesStructures {
         BytesItems.ITEMS.register(modBus);
         BytesFeatures.FEATURES.register(modBus);
         BytesEntities.ENTITIES.register(modBus);
-//        BytesTreeDecorators.TREE_DECORATORS.register(modBus);
+        BytesTreeDecorators.TREE_DECORATORS.register(modBus);
         BytesBiomes.BIOMES.register(modBus);
         BytesFeatureStructures.STRUCTURES.register(modBus);
         modBus.addListener(this::loadComplete);
