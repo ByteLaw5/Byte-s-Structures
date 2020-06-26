@@ -1,0 +1,6 @@
+{
+    "parent": "bytesstructures:block/template_path",
+    "textures": {
+        "all": "block/slime_block"
+    }
+}

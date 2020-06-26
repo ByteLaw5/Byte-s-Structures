@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "## ",
+        "#! ",
+        " ! "
+    ],
+    "key": {
+        "#": {
+            "item": "bytesstructures:black_walnut_planks"
+        },
+        "!": {
+            "item": "minecraft:stick"
+        }
+    },
+    "result": {
+        "item": "minecraft:wooden_axe"
+    }
+}

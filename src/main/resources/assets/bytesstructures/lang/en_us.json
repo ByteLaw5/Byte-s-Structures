@@ -1,0 +1,21 @@
+{
+    "item.bytesstructures.guard_spawn_egg": "Guard Spawn Egg",
+
+    "block.bytesstructures.ancient_bricks": "Ancient Bricks",
+    "block.bytesstructures.ancient_pillar": "Ancient Pillar",
+    "block.bytesstructures.ancient_chiseled_bricks": "Ancient Chiseled Bricks",
+    "block.bytesstructures.ancient_brick_slab": "Ancient Brick Slab",
+    "block.bytesstructures.black_walnut_log": "Black Walnut Log",
+    "block.bytesstructures.black_walnut_leaves": "Black Walnut Leaves",
+    "block.bytesstructures.black_walnut_sapling": "Black Walnut Sapling",
+    "block.bytesstructures.walnut": "Walnut",
+    "block.bytesstructures.black_walnut_planks": "Black Walnut Planks",
+    "block.bytesstructures.slimy_path": "Slimy Path",
+    "block.bytesstructures.purpur_door": "Purpur Door",
+
+    "itemGroup.bytesitemgroup": "Byte's Structures",
+
+    "entity.bytesstructures.guard": "Guard",
+
+    "biome.bytesstructures.walnut_forest": "Walnut Forest"
+}

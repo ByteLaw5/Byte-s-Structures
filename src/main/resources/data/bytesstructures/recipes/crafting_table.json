@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "##",
+        "##"
+    ],
+    "key": {
+        "#": {
+            "item": "bytesstructures:black_walnut_planks"
+        }
+    },
+    "result": {
+        "item": "minecraft:crafting_table"
+    }
+}
