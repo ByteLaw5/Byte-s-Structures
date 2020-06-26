@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.event.RegistryEvent;
@@ -20,21 +19,22 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
 public class BytesEntities {
-    public static final Map<EntityType<? extends LivingEntity>, AttributeModifierMap> ATTRIBUTES = Maps.newHashMap();
+    public static final Map<EntityType<? extends LivingEntity>, Supplier<AttributeModifierMap>> ATTRIBUTES = Maps.newHashMap();
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, BytesStructures.MODID);
 
-    public static final RegistryObject<EntityType<GuardEntity>> GUARD = register("guard", GuardEntity::new, EntityClassification.CREATURE, GuardEntity.getAttributes());
+    public static final RegistryObject<EntityType<GuardEntity>> GUARD = register("guard", GuardEntity::new, EntityClassification.CREATURE, GuardEntity::getAttributes);
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factory, EntityClassification classification, @Nullable AttributeModifierMap attributes) {
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factory, EntityClassification classification, @Nullable Supplier<AttributeModifierMap> attributes) {
         EntityType.Builder<T> builder = EntityType.Builder.create(factory, classification);
         return register(name, builder, attributes);
     }
 
     @SuppressWarnings("unchecked")
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder, @Nullable AttributeModifierMap attributes) {
+    private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder, @Nullable Supplier<AttributeModifierMap> attributes) {
         EntityType<T> ret = builder.build(BytesStructures.resource(name).toString());
         if(attributes != null) {//This means that the entity is a living entity
             ATTRIBUTES.put((EntityType<? extends LivingEntity>)ret, attributes);
@@ -45,10 +45,6 @@ public class BytesEntities {
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public static void onEntityRegisterEvent(RegistryEvent.Register<EntityType<?>> event) {
         ModdedSpawnEggItem.initUnaddedEggs();
-    }
-
-    @SubscribeEvent(priority=EventPriority.LOWEST)
-    public static void onAttributesRegisterEvent(RegistryEvent.Register<Attribute> event) {
-        BytesEntities.ATTRIBUTES.forEach(GlobalEntityTypeAttributes::put);
+        BytesEntities.ATTRIBUTES.forEach((type, sup) -> GlobalEntityTypeAttributes.put(type, sup.get()));
     }
 }
