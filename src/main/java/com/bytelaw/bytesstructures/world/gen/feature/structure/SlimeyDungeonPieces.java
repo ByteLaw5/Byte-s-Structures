@@ -45,7 +45,7 @@ public class SlimeyDungeonPieces {
         private final Rotation rotation;
 
         public Piece(BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
-            super(BytesStructures.SLIMEY_DUNGEON_PIECE, 0);
+            super(BytesFeatureStructures.SLIMEY_DUNGEON_PIECE, 0);
             this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             this.templateLocation = location;
             this.rotation = rotation;
@@ -53,7 +53,7 @@ public class SlimeyDungeonPieces {
         }
 
         public Piece(TemplateManager manager, CompoundNBT nbt) {
-            super(BytesStructures.SLIMEY_DUNGEON_PIECE, nbt);
+            super(BytesFeatureStructures.SLIMEY_DUNGEON_PIECE, nbt);
             this.templateLocation = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
             setup(manager);

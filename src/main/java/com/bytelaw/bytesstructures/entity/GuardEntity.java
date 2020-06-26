@@ -3,6 +3,9 @@ package com.bytelaw.bytesstructures.entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.SlimeEntity;
@@ -25,9 +28,9 @@ public class GuardEntity extends CreatureEntity {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new SwimGoal(this));
-        goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.635D, true));
+        goalSelector.addGoal(1, new MeleeAttackGoal(this, getMovementSpeed(), true));
         goalSelector.addGoal(5, new LookRandomlyGoal(this));
-        goalSelector.addGoal(6, new RandomWalkingGoal(this, 0.635D, 10));
+        goalSelector.addGoal(6, new RandomWalkingGoal(this, getMovementSpeed(), 10));
         goalSelector.addGoal(7, new LookAtGoal(this, LivingEntity.class, 10.0F, 0.1F));
         targetSelector.addGoal(2, new HurtByTargetGoal(this).setCallsForHelp(GuardEntity.class));
         targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
@@ -36,23 +39,21 @@ public class GuardEntity extends CreatureEntity {
         targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, GolemEntity.class, 15, true, false, (entity) -> !(entity instanceof IronGolemEntity)));
     }
 
-//    private double getMovementSpeed() {
-//        return getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getValue();
-//    }
+    private double getMovementSpeed() {
+        return getAttribute(Attributes.field_233821_d_).getValue();
+    }
 
-//    @Override
-//    protected void registerAttributes() {
-//        super.registerAttributes();
-//        getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_SPEED);
-//        getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-//        getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-//        getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.635D);
-//        getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
-//        getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(7.0D);
-//        getAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(1.0D);
-//        getAttribute(SharedMonsterAttributes.ATTACK_SPEED).setBaseValue(1.0D);
-//        getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(50.0D);
-//    }
+    public static AttributeModifierMap getAttributes() {
+        return MobEntity.func_233666_p_()
+                .func_233815_a_(Attributes.field_233818_a_, 30.0D) //Health
+                .func_233815_a_(Attributes.field_233819_b_, 50.0D) //Follow Range
+                .func_233815_a_(Attributes.field_233823_f_, 5.0D) //Attack Damage
+                .func_233815_a_(Attributes.field_233821_d_, 0.635D) //Movement Speed
+                .func_233815_a_(Attributes.field_233826_i_, 7.0D) //Armor
+                .func_233815_a_(Attributes.field_233827_j_, 1.0D) //Armor Toughness
+                .func_233815_a_(Attributes.field_233825_h_, 1.0D) //Attack Speed
+                .func_233813_a_();
+    }
 
     @Nullable
     @Override

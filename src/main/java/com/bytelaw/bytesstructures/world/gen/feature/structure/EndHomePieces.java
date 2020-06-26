@@ -48,7 +48,7 @@ public class EndHomePieces {
         private final Rotation rotation;
 
         public Piece(BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
-            super(BytesStructures.END_HOME_PIECE, 0);
+            super(BytesFeatureStructures.END_HOME_PIECE, 0);
             this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             this.templateLocation = location;
             this.rotation = rotation;
@@ -56,7 +56,7 @@ public class EndHomePieces {
         }
 
         public Piece(TemplateManager manager, CompoundNBT nbt) {
-            super(BytesStructures.END_HOME_PIECE, nbt);
+            super(BytesFeatureStructures.END_HOME_PIECE, nbt);
             this.templateLocation = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
             setup(manager);

@@ -82,7 +82,7 @@ public class AncientLootStructurePieces {
         private final Rotation rotation;
 
         public Piece(BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
-            super(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesStructures.ANCIENT_LOOT_ROOM, 0);
+            super(BytesFeatureStructures.ANCIENT_LOOT_ROOM, 0);
             this.templatePosition = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
             this.templateLocation = location;
             this.rotation = rotation;
@@ -90,7 +90,7 @@ public class AncientLootStructurePieces {
         }
 
         public Piece(TemplateManager manager, CompoundNBT nbt) {
-            super(com.bytelaw.bytesstructures.world.gen.feature.structure.BytesStructures.ANCIENT_LOOT_ROOM, nbt);
+            super(BytesFeatureStructures.ANCIENT_LOOT_ROOM, nbt);
             this.templateLocation = new ResourceLocation(nbt.getString("Template"));
             this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
             setup(manager);
