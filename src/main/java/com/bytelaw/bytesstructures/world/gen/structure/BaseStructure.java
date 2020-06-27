@@ -21,7 +21,7 @@ public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<
     protected final GenerationStage.Decoration decoration;
     private final int maxSeparation;
     private final int minSeparation;
-    private final String name;
+    protected final String name;
 
     public BaseStructure(Builder<C> builder) {
         super(builder.codec);

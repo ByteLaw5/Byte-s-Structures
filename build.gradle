@@ -119,7 +119,7 @@ jar {
         attributes([
             "Specification-Title": "bytesstructures",
             "Specification-Vendor": "ByteLaw",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "${version}",
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"ByteLaw",
