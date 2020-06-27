@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID)
 public class AncientLootStructure extends BaseStructure<ChanceConfig> {
     public AncientLootStructure() {
-        super(new Builder<>(ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+        super(new Builder<>("ancient_loot", ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
             Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
             int x = (chunkX << 4) + 8;
             int z = (chunkZ << 4) + 8;
@@ -24,7 +24,7 @@ public class AncientLootStructure extends BaseStructure<ChanceConfig> {
                 return;
 
             AncientLootStructurePieces.addStructurePieces(manager, pos, rotation, components, random);
-        }).decorationStage(GenerationStage.Decoration.UNDERGROUND_STRUCTURES));
+        }).decorationStage(GenerationStage.Decoration.UNDERGROUND_STRUCTURES).separation(10, 20));
     }
 
     private static int getYForStart(ChunkGenerator generator, int chunkX, int chunkZ) {

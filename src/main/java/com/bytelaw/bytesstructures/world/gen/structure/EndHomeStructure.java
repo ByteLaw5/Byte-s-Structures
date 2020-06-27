@@ -6,7 +6,7 @@ import net.minecraft.world.gen.Heightmap;
 
 public class EndHomeStructure extends BaseStructure<ChanceConfig> {
     public EndHomeStructure() {
-        super(new Builder<>(ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+        super(new Builder<>("end_home", ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
             Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
@@ -18,6 +18,6 @@ public class EndHomeStructure extends BaseStructure<ChanceConfig> {
                 return;
 
             EndHomePieces.addStructurePieces(manager, pos, rotation, components, random);
-        }));
+        }).separation(20, 70));
     }
 }

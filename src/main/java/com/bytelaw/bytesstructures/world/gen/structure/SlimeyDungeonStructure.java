@@ -6,7 +6,7 @@ import net.minecraft.world.gen.Heightmap;
 
 public class SlimeyDungeonStructure extends BaseStructure<ChanceConfig> {
     public SlimeyDungeonStructure() {
-        super(new Builder<>(ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+        super(new Builder<>("slimey_dungeon", ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
             Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
@@ -18,6 +18,6 @@ public class SlimeyDungeonStructure extends BaseStructure<ChanceConfig> {
                 return;
 
             SlimeyDungeonPieces.addStructurePieces(manager, pos, rotation, components, random);
-        }));
+        }).separation(10, 50));
     }
 }
