@@ -14,6 +14,6 @@ import java.util.OptionalInt;
 
 public class BlackWalnutHugeTreeConfig extends BaseTreeFeatureConfig {
     public BlackWalnutHugeTreeConfig(List<TreeDecorator> decoratorsIn) {
-        super(new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LOG.get().getDefaultState()), new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LEAVES.get().getDefaultState()), new FancyFoliagePlacer(2, 2, 2, 2, 2), new GiantTrunkPlacer(7, 7, 7), new ThreeLayerFeature(5, 5, 5, 5, 5, OptionalInt.of(5)), decoratorsIn, 5, true, Heightmap.Type.WORLD_SURFACE_WG);
+        super(new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LOG.get().getDefaultState()), new SimpleBlockStateProvider(BytesBlocks.BLACK_WALNUT_LEAVES.get().getDefaultState()), new FancyFoliagePlacer(2, 2, 2, 2, 2), new GiantTrunkPlacer(4, 7, 7), new ThreeLayerFeature(5, 5, 5, 5, 5, OptionalInt.of(5)), decoratorsIn, 5, true, Heightmap.Type.WORLD_SURFACE_WG);
     }
 }

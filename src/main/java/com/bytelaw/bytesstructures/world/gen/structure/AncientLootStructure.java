@@ -1,73 +1,33 @@
 package com.bytelaw.bytesstructures.world.gen.structure;
 
 import com.bytelaw.bytesstructures.BytesStructures;
-import com.bytelaw.bytesstructures.entity.BytesEntities;
-import com.google.common.collect.Lists;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
-import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
-
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID)
-public class AncientLootStructure extends Structure<ChanceConfig> {
-    public static final String STRUCTURE_NAME = "bytesstructures:ancient_loot";
-
+public class AncientLootStructure extends BaseStructure<ChanceConfig> {
     public AncientLootStructure() {
-        super(ChanceConfig.CODEC);
-    }
+        super(new Builder<>(ChanceConfig.CODEC, (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+            Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+            int x = (chunkX << 4) + 8;
+            int z = (chunkZ << 4) + 8;
 
-    @Override
-    public IStartFactory<ChanceConfig> getStartFactory() {
-        return Start::new;
-    }
-
-    public static List<Biome.SpawnListEntry> getSpawns() {
-        return Lists.newArrayList(new Biome.SpawnListEntry(BytesEntities.GUARD.get(), 10, 1, 5));
-    }
-
-    @Override
-    public GenerationStage.Decoration func_236396_f_() {
-        return GenerationStage.Decoration.UNDERGROUND_STRUCTURES;
-    }
-
-    @Override
-    public String getStructureName() {
-        return STRUCTURE_NAME;
-    }
-
-    public static class Start extends StructureStart<ChanceConfig> {
-        public Start(Structure<ChanceConfig> p_i225876_1_, int p_i225876_2_, int p_i225876_3_, MutableBoundingBox p_i225876_4_, int p_i225876_5_, long p_i225876_6_) {
-            super(p_i225876_1_, p_i225876_2_, p_i225876_3_, p_i225876_4_, p_i225876_5_, p_i225876_6_);
-        }
-
-        private static int getYForStart(ChunkGenerator generator, int chunkX, int chunkZ) {
-            return MathHelper.clamp(generator.func_222531_c(chunkX, chunkZ, Heightmap.Type.WORLD_SURFACE_WG), 35, 70) - 20;
-        }
-
-        @Override
-        public void func_230364_a_(ChunkGenerator p_230364_1_, TemplateManager p_230364_2_, int p_230364_3_, int p_230364_4_, Biome p_230364_5_, ChanceConfig p_230364_6_) {
-            Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            int x = (p_230364_3_ << 4) + 7;
-            int z = (p_230364_4_ << 4) + 7;
-
-            int y = getYForStart(p_230364_1_, p_230364_3_, p_230364_4_);
+            int y = getYForStart(generator, chunkX, chunkZ);
             BlockPos pos = new BlockPos(x, y, z);
 
-            if(p_230364_6_.chance > rand.nextInt(1000))
+            if(config.chance > random.nextInt(1000))
                 return;
 
-            AncientLootStructurePieces.addStructurePieces(p_230364_2_, pos, rotation, this.components, this.rand);
-            this.recalculateStructureSize();
-        }
+            AncientLootStructurePieces.addStructurePieces(manager, pos, rotation, components, random);
+        }).decorationStage(GenerationStage.Decoration.UNDERGROUND_STRUCTURES));
+    }
+
+    private static int getYForStart(ChunkGenerator generator, int chunkX, int chunkZ) {
+        return MathHelper.clamp(generator.func_222531_c(chunkX, chunkZ, Heightmap.Type.WORLD_SURFACE_WG), 35, 75) - 20;
     }
 }

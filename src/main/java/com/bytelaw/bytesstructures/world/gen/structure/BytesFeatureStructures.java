@@ -19,7 +19,7 @@ public class BytesFeatureStructures {
     public static final RegistryObject<EndHomeStructure> END_HOME = register("end_home", EndHomeStructure::new);
 
     private static <CF extends IFeatureConfig, T extends Structure<CF>> RegistryObject<T> register(String name, Supplier<T> sup) {
-        Structure.field_236365_a_.put(sup.get().getStructureName(), sup.get());
+        Structure.field_236365_a_.put(BytesStructures.resource(name).toString(), sup.get());
         return STRUCTURES.register(name, sup);
     }
 

@@ -17,7 +17,7 @@ public class WalnutForestBiome extends Biome {
                 .precipitation(RainType.RAIN)
                 .temperature(0.75F)
                 .downfall(0.5F)
-                .func_235097_a_(new BiomeAmbience.Builder().func_235239_a_(0x000000).func_235246_b_(4566514).func_235248_c_(267827).func_235238_a_()));
+                .func_235097_a_(new BiomeAmbience.Builder().func_235239_a_(12638463).func_235246_b_(4566514).func_235248_c_(267827).func_235238_a_()));
         addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));
         addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));

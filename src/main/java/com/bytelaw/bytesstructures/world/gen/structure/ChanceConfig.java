@@ -11,5 +11,4 @@ public class ChanceConfig implements IFeatureConfig {
     public ChanceConfig(int chance) {
         this.chance = chance;
     }
-
 }
