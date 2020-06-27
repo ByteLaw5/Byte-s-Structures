@@ -3,11 +3,15 @@ package com.bytelaw.bytesstructures.item;
 import com.bytelaw.bytesstructures.BytesStructures;
 import com.bytelaw.bytesstructures.block.BytesBlocks;
 import com.bytelaw.bytesstructures.entity.BytesEntities;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -35,7 +39,7 @@ public class BytesItems {
                     return tagIn == ItemTags.LOGS;
                 }
             }),
-//            BLACK_WALNUT_SAPLING = ITEMS.register("black_walnut_sapling", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_SAPLING.get(), new Item.Properties().group(BytesFeatureStructures.GROUP))),
+            BLACK_WALNUT_SAPLING = ITEMS.register("black_walnut_sapling", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_SAPLING.get(), new Item.Properties().group(BytesStructures.GROUP))),
             WALNUT = ITEMS.register("walnut", () -> new BlockItem(BytesBlocks.WALNUT.get(), new Item.Properties().group(BytesStructures.GROUP).food(new Food.Builder().hunger(2).fastToEat().saturation(0.5F).build()))),
             BLACK_WALNUT_PLANKS = ITEMS.register("black_walnut_planks", () -> new BlockItem(BytesBlocks.BLACK_WALNUT_PLANKS.get(), new Item.Properties().group(BytesStructures.GROUP)) {
                 @Override
@@ -46,8 +50,8 @@ public class BytesItems {
             SLIMY_PATH = ITEMS.register("slimy_path", () -> new BlockItem(BytesBlocks.SLIMY_PATH.get(), new Item.Properties().group(BytesStructures.GROUP))),
             PURPUR_DOOR = ITEMS.register("purpur_door", () -> new BlockItem(BytesBlocks.PURPUR_DOOR.get(), new Item.Properties().group(BytesStructures.GROUP)));
 
-//    @SubscribeEvent(priority=EventPriority.LOWEST)
-//    public static void onItemRegister(RegistryEvent.Register<Item> event) {
-//        ComposterBlock.CHANCES.put(BLACK_WALNUT_SAPLING.get(), 0.3F);
-//    }
+    @SubscribeEvent(priority=EventPriority.LOWEST)
+    public static void onItemRegister(RegistryEvent.Register<Item> event) {
+        ComposterBlock.CHANCES.put(BLACK_WALNUT_SAPLING.get(), 0.3F);
+    }
 }

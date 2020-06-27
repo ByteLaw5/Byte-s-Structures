@@ -33,7 +33,7 @@ public class Client {
     public static void client(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(BytesEntities.GUARD.get(), GuardRenderer::new);
         RenderTypeLookup.setRenderLayer(BytesBlocks.BLACK_WALNUT_LEAVES.get(), RenderType.getCutoutMipped());
-//        RenderTypeLookup.setRenderLayer(BytesBlocks.BLACK_WALNUT_SAPLING.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(BytesBlocks.BLACK_WALNUT_SAPLING.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(BytesBlocks.WALNUT.get(), RenderType.getCutout());
     }
 }

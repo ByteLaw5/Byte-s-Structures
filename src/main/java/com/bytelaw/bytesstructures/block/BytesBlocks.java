@@ -49,7 +49,7 @@ public class BytesBlocks {
                     return 5;
                 }
             }),
-//            BLACK_WALNUT_SAPLING = BLOCKS.register("black_walnut_sapling", () -> new BlackWalnutSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT))),
+            BLACK_WALNUT_SAPLING = BLOCKS.register("black_walnut_sapling", () -> new BlackWalnutSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT))),
             WALNUT = BLOCKS.register("walnut", () -> new WalnutBlock(Block.Properties.create(Material.PLANTS).tickRandomly().doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT))),
             BLACK_WALNUT_PLANKS = BLOCKS.register("black_walnut_planks", () -> new Block(Block.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)) {
                 @Override

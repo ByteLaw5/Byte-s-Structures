@@ -1,10 +1,10 @@
 package com.bytelaw.bytesstructures.block;
 
+import com.bytelaw.bytesstructures.block.trees.BlackWalnutTree;
 import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.trees.Tree;
 
 public class BlackWalnutSaplingBlock extends SaplingBlock {
-    public BlackWalnutSaplingBlock(Tree treeIn, Properties properties) {
-        super(treeIn, properties);
+    public BlackWalnutSaplingBlock(Properties properties) {
+        super(new BlackWalnutTree(), properties);
     }
 }
