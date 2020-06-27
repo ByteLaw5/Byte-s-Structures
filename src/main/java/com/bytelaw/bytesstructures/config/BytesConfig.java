@@ -9,13 +9,13 @@ import org.apache.commons.lang3.tuple.Pair;
 
 @Mod.EventBusSubscriber(modid=BytesStructures.MODID,bus=Mod.EventBusSubscriber.Bus.MOD)
 public class BytesConfig {
-    public static final CommonConfig COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ServerConfig SERVER;
+    public static final ForgeConfigSpec SERVER_SPEC;
 
     static {
-        final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CommonConfig::new);
-        COMMON_SPEC = specPair.getRight();
-        COMMON = specPair.getLeft();
+        final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
+        SERVER_SPEC = specPair.getRight();
+        SERVER = specPair.getLeft();
     }
 
     //Right now this value doesn't have a use until I figure out how to properly spawn structures with a chance
@@ -26,25 +26,25 @@ public class BytesConfig {
 
     @SubscribeEvent
     public static void bakeConfigEvent(ModConfig.ModConfigEvent configEvent) {
-        if(configEvent.getConfig().getSpec() == COMMON_SPEC) {
+        if(configEvent.getConfig().getSpec() == SERVER_SPEC) {
             bakeConfig();
         }
     }
 
     public static void bakeConfig() {
-        ancientLootStructureSpawnChance = COMMON.ancientLootStructureSpawnChance.get();
-        walnutForestBiomeSpawnChance = COMMON.walnutForestBiomeSpawnChance.get();
-        slimeyDungeonSpawnChance = COMMON.slimeyDungeonSpawnChance.get();
-        endHomeSpawnChance = COMMON.endHomeSpawnChance.get();
+        ancientLootStructureSpawnChance = SERVER.ancientLootStructureSpawnChance.get();
+        walnutForestBiomeSpawnChance = SERVER.walnutForestBiomeSpawnChance.get();
+        slimeyDungeonSpawnChance = SERVER.slimeyDungeonSpawnChance.get();
+        endHomeSpawnChance = SERVER.endHomeSpawnChance.get();
     }
 
-    public static class CommonConfig {
+    public static class ServerConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> ancientLootStructureSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> walnutForestBiomeSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> slimeyDungeonSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> endHomeSpawnChance;
 
-        public CommonConfig(ForgeConfigSpec.Builder builder) {
+        public ServerConfig(ForgeConfigSpec.Builder builder) {
             builder.push("structures");
             ancientLootStructureSpawnChance = builder
                     .comment("Chance that the ancient loot structure will spawn")

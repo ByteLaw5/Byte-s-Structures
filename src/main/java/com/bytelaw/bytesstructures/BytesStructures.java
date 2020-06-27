@@ -61,7 +61,7 @@ public class BytesStructures {
     public BytesStructures() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BytesConfig.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, BytesConfig.SERVER_SPEC);
 
         BytesBlocks.BLOCKS.register(modBus);
         BytesItems.ITEMS.register(modBus);
@@ -73,8 +73,9 @@ public class BytesStructures {
         modBus.addListener(this::loadComplete);
         MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinWorld);
 
-        if(FMLEnvironment.dist == Dist.CLIENT)
+        if(FMLEnvironment.dist == Dist.CLIENT) {
             modBus.register(Client.class);
+        }
 
         LOGGER.info("Mod construction complete");
     }
