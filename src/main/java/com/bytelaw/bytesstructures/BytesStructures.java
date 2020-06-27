@@ -61,7 +61,7 @@ public class BytesStructures {
     public BytesStructures() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BytesConfig.COMMON_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, BytesConfig.SERVER_SPEC);
 
         BytesBlocks.BLOCKS.register(modBus);
         BytesItems.ITEMS.register(modBus);
