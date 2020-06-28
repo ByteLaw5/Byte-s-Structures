@@ -2,6 +2,6 @@
     "parent": "block/door_top_rh",
     "textures": {
         "bottom": "block/purpur_block",
-        "top": "block/purpur_block"
+        "top": "bytesstructures:block/purpur_door_up"
     }
 }

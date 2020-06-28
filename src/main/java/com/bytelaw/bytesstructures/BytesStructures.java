@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
@@ -89,6 +90,7 @@ public class BytesStructures {
             Biomes.END_BARRENS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
             Biomes.END_HIGHLANDS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
             Biomes.END_MIDLANDS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
+            Biomes.field_235251_aB_.func_235063_a_(BytesFeatureStructures.BASALT_DUNGEON.get().func_236391_a_(IFeatureConfig.NO_FEATURE_CONFIG));
         });
         LOGGER.info("Completed loading");
     }

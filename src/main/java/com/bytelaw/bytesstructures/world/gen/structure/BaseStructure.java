@@ -18,7 +18,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
 import java.util.List;
-import java.util.Random;
+import java.util.function.BiPredicate;
 
 public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<C> {
     protected final IStartInitFactory<C> factory;
@@ -94,7 +94,7 @@ public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<
 
     @FunctionalInterface
     public interface IStructurePieceAdder {
-        void addStructurePieces(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random random);
+        void addStructurePieces(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, SharedSeedRandom random);
     }
 
     public static class Builder<C extends IFeatureConfig> {
@@ -110,7 +110,7 @@ public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<
             this.startFactory = startFactory;
         }
 
-        public static IStartInitFactory<ChanceConfig> basicInitFactory(IStructurePieceAdder adder) {
+        public static <C extends IFeatureConfig> IStartInitFactory<C> basicInitFactory(IStructurePieceAdder adder) {
             return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
                 Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
                 int x = (chunkX << 4) + 8;
@@ -119,11 +119,84 @@ public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<
                 int y = generator.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
                 BlockPos pos = new BlockPos(x, y, z);
 
-                if (config.chance > random.nextInt(1000))
+                adder.addStructurePieces(manager, pos, rotation, components, random);
+            };
+        }
+
+        public static <C extends IFeatureConfig> IStartInitFactory<C> basicInitFactory(IStructurePieceAdder adder, Heightmap.Type type) {
+            return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+                Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+                int x = (chunkX << 4) + 8;
+                int z = (chunkZ << 4) + 8;
+
+                int y = generator.func_222531_c(x, z, type);
+                BlockPos pos = new BlockPos(x, y, z);
+
+                adder.addStructurePieces(manager, pos, rotation, components, random);
+            };
+        }
+
+        public static <C extends IFeatureConfig> IStartInitFactory<C> basicInitFactory(IStructurePieceAdder adder, int y) {
+            return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+                Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+                int x = (chunkX << 4) + 8;
+                int z = (chunkZ << 4) + 8;
+
+                BlockPos pos = new BlockPos(x, y, z);
+
+                adder.addStructurePieces(manager, pos, rotation, components, random);
+            };
+        }
+
+        public static <C extends IFeatureConfig> IStartInitFactory<C> basicInitFactory(IStructurePieceAdder adder, BiPredicate<C, SharedSeedRandom> predicate) {
+            return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+                Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+                int x = (chunkX << 4) + 8;
+                int z = (chunkZ << 4) + 8;
+
+                int y = generator.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+                BlockPos pos = new BlockPos(x, y, z);
+
+                if (!predicate.test(config, random))
                     return;
 
                 adder.addStructurePieces(manager, pos, rotation, components, random);
             };
+        }
+
+        public static <C extends IFeatureConfig> IStartInitFactory<C> basicInitFactory(IStructurePieceAdder adder, BiPredicate<C, SharedSeedRandom> predicate, Heightmap.Type type) {
+            return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+                Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+                int x = (chunkX << 4) + 8;
+                int z = (chunkZ << 4) + 8;
+
+                int y = generator.func_222531_c(x, z, type);
+                BlockPos pos = new BlockPos(x, y, z);
+
+                if (!predicate.test(config, random))
+                    return;
+
+                adder.addStructurePieces(manager, pos, rotation, components, random);
+            };
+        }
+
+        public static <C extends IFeatureConfig> IStartInitFactory<C> basicInitFactory(IStructurePieceAdder adder, BiPredicate<C, SharedSeedRandom> predicate, int y) {
+            return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+                Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+                int x = (chunkX << 4) + 8;
+                int z = (chunkZ << 4) + 8;
+
+                BlockPos pos = new BlockPos(x, y, z);
+
+                if (!predicate.test(config, random))
+                    return;
+
+                adder.addStructurePieces(manager, pos, rotation, components, random);
+            };
+        }
+
+        public static BiPredicate<ChanceConfig, SharedSeedRandom> chancePredicate() {
+            return (config, rand) -> config.chance <= rand.nextInt(1000);
         }
 
         public Builder<C> decorationStage(GenerationStage.Decoration stage) {

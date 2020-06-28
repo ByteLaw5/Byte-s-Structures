@@ -53,11 +53,11 @@ public class BytesConfig {
             slimeyDungeonSpawnChance = builder
                     .comment("Chance that the slimey dungeon will spawn")
                     .worldRestart()
-                    .defineInRange("slimeyDungeonSpawnChance", 15, 0, 100);
+                    .defineInRange("slimeyDungeonSpawnChance", 25, 0, 100);
             endHomeSpawnChance = builder
                     .comment("Chance that the end home will spawn")
                     .worldRestart()
-                    .defineInRange("endHomeSpawnChance", 15, 0, 100);
+                    .defineInRange("endHomeSpawnChance", 10, 0, 100);
             builder.pop();
             builder.push("biomes");
             walnutForestBiomeSpawnChance = builder

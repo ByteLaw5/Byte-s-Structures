@@ -26,15 +26,17 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BasePiece extends TemplateStructurePiece {
+public abstract class BasePiece extends TemplateStructurePiece {
     protected final ResourceLocation templateLocation;
     protected final Rotation rotation;
     private final IStructurePieceType pieceType;
     private static int componentType;
     @Nullable
     private ResourceLocation lootTable;
+    @Nullable
+    private IDataMarkerHandler handler;
 
-    public BasePiece(IStructurePieceType type, BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
+    protected BasePiece(IStructurePieceType type, BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
         super(type, componentType);
         this.pieceType = type;
         componentType++;
@@ -47,6 +49,7 @@ public class BasePiece extends TemplateStructurePiece {
     public BasePiece(ValidatedBuilder builder) {
         this(builder.type, builder.origin, builder.manager, builder.template, builder.rotation);
         this.lootTable = builder.lootTable;
+        this.handler = builder.handler;
     }
 
     public BasePiece(TemplateManager manager, CompoundNBT nbt) {
@@ -81,17 +84,25 @@ public class BasePiece extends TemplateStructurePiece {
 
     @Override
     protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
-        if("chest".equals(function)) {
-            worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
-            TileEntity te = worldIn.getTileEntity(pos);
-            if(te instanceof ChestTileEntity && lootTable != null) {
-                ((ChestTileEntity)te).setLootTable(lootTable, rand.nextLong());
+        if(handler != null) handler.handleData(function, pos, worldIn, rand, sbb, lootTable);
+        else {
+            if ("chest".equals(function)) {
+                worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
+                TileEntity te = worldIn.getTileEntity(pos);
+                if (te instanceof ChestTileEntity && lootTable != null) {
+                    ((ChestTileEntity)te).setLootTable(lootTable, rand.nextLong());
+                }
             }
         }
     }
 
     protected static IStructurePieceType registerType(ResourceLocation location, IStructurePieceType type) {
         return Registry.register(Registry.STRUCTURE_PIECE, location, type);
+    }
+
+    @FunctionalInterface
+    public interface IDataMarkerHandler {
+        void handleData(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb, @Nullable ResourceLocation lootTable);
     }
 
     public static class Builder {
@@ -101,6 +112,7 @@ public class BasePiece extends TemplateStructurePiece {
         private final ResourceLocation template;
         private Rotation rotation = Rotation.NONE;
         private ResourceLocation lootTable;
+        private IDataMarkerHandler handler;
 
         public Builder(ResourceLocation template, BlockPos pos, TemplateManager manager, IStructurePieceType type) {
             this.template = template;
@@ -116,6 +128,11 @@ public class BasePiece extends TemplateStructurePiece {
 
         public Builder setLootTable(ResourceLocation lootTable) {
             this.lootTable = lootTable;
+            return this;
+        }
+
+        public Builder setDataMarkerHandler(IDataMarkerHandler handler) {
+            this.handler = handler;
             return this;
         }
 
@@ -136,14 +153,16 @@ public class BasePiece extends TemplateStructurePiece {
         private final ResourceLocation template;
         private final Rotation rotation;
         private final ResourceLocation lootTable;
+        private final IDataMarkerHandler handler;
 
-        public ValidatedBuilder(Builder builder) {
+        private ValidatedBuilder(Builder builder) {
             this.origin = builder.origin;
             this.manager = builder.manager;
             this.type = builder.type;
             this.template = builder.template;
             this.rotation = builder.rotation;
             this.lootTable = builder.lootTable;
+            this.handler = builder.handler;
         }
     }
 }

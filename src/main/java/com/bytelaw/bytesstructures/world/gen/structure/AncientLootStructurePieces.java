@@ -27,7 +27,7 @@ public class AncientLootStructurePieces {
 
         BlockPos rotationOffset = new BlockPos(0, 0, 0).rotate(rotation);
         BlockPos blockpos = rotationOffset.add(x, pos.getY(), z);
-        pieces.add(Piece.construct(MAIN_ROOM, blockpos, manager, rotation, BytesLootTables.CHESTS_ANCIENT_LOOT));
+        pieces.add(Piece.construct(MAIN_ROOM, blockpos, manager, rotation, BytesLootTables.CHESTS_LOOT));
 
         rotationOffset = new BlockPos(-9, 0, 0).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
