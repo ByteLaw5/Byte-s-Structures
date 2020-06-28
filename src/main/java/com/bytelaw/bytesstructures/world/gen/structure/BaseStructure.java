@@ -1,12 +1,15 @@
 package com.bytelaw.bytesstructures.world.gen.structure;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
@@ -15,6 +18,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<C> {
     protected final IStartInitFactory<C> factory;
@@ -88,6 +92,11 @@ public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<
         void init(ChunkGenerator generator, TemplateManager manager, int chunkX, int chunkZ, Biome biome, C config, List<StructurePiece> components, SharedSeedRandom random);
     }
 
+    @FunctionalInterface
+    public interface IStructurePieceAdder {
+        void addStructurePieces(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random random);
+    }
+
     public static class Builder<C extends IFeatureConfig> {
         private GenerationStage.Decoration decoration = GenerationStage.Decoration.SURFACE_STRUCTURES;
         private final Codec<C> codec;
@@ -99,6 +108,22 @@ public abstract class BaseStructure<C extends IFeatureConfig> extends Structure<
             this.name = "bytesstructures:" + name;
             this.codec = configCodec;
             this.startFactory = startFactory;
+        }
+
+        public static IStartInitFactory<ChanceConfig> basicInitFactory(IStructurePieceAdder adder) {
+            return (generator, manager, chunkX, chunkZ, biome, config, components, random) -> {
+                Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
+                int x = (chunkX << 4) + 8;
+                int z = (chunkZ << 4) + 8;
+
+                int y = generator.func_222531_c(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+                BlockPos pos = new BlockPos(x, y, z);
+
+                if (config.chance > random.nextInt(1000))
+                    return;
+
+                adder.addStructurePieces(manager, pos, rotation, components, random);
+            };
         }
 
         public Builder<C> decorationStage(GenerationStage.Decoration stage) {

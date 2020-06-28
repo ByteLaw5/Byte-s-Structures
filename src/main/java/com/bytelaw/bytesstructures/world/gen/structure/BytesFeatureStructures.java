@@ -1,9 +1,6 @@
 package com.bytelaw.bytesstructures.world.gen.structure;
 
-import com.bytelaw.bytesstructures.BytesStructures;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,13 +19,5 @@ public class BytesFeatureStructures {
         T structure = sup.get();
         Structure.field_236365_a_.put(structure.getStructureName(), structure);
         return STRUCTURES.register(name, sup);
-    }
-
-    public static final IStructurePieceType ANCIENT_LOOT_ROOM_PIECE = registerPiece("ancient_loot_room", AncientLootStructurePieces.Piece::new);
-    public static final IStructurePieceType SLIMEY_DUNGEON_PIECE = registerPiece("slimey_dungeon", SlimeyDungeonPieces.Piece::new);
-    public static final IStructurePieceType END_HOME_PIECE = registerPiece("end_home", EndHomePieces.Piece::new);
-
-    private static IStructurePieceType registerPiece(String name, IStructurePieceType type) {
-        return Registry.register(Registry.STRUCTURE_PIECE, BytesStructures.resource(name), type);
     }
 }
