@@ -49,14 +49,6 @@ public class BasePiece extends TemplateStructurePiece {
         this.lootTable = builder.lootTable;
     }
 
-    public static BasePiece construct(ResourceLocation template, BlockPos pos, TemplateManager manager, IStructurePieceType type, Rotation rotation) {
-        return new BasePiece(new Builder(template, pos, manager, type, rotation).validate());
-    }
-
-    public static BasePiece construct(ResourceLocation template, BlockPos pos, TemplateManager manager, IStructurePieceType type, Rotation rotation, ResourceLocation lootTable) {
-        return new BasePiece(new Builder(template, pos, manager, type, rotation).setLootTable(lootTable).validate());
-    }
-
     public BasePiece(TemplateManager manager, CompoundNBT nbt) {
         super(Registry.STRUCTURE_PIECE.getOrDefault(new ResourceLocation(nbt.getString("pieceType"))), nbt);
         this.pieceType = Registry.STRUCTURE_PIECE.getOrDefault(new ResourceLocation(nbt.getString("pieceType")));
@@ -98,12 +90,11 @@ public class BasePiece extends TemplateStructurePiece {
         }
     }
 
-    public static class Builder {
-        public static IStructurePieceType constructType(ResourceLocation loc) {
-            IStructurePieceType type = BasePiece::new;
-            return Registry.register(Registry.STRUCTURE_PIECE, loc, type);
-        }
+    protected static IStructurePieceType registerType(ResourceLocation location, IStructurePieceType type) {
+        return Registry.register(Registry.STRUCTURE_PIECE, location, type);
+    }
 
+    public static class Builder {
         private final BlockPos origin;
         private final TemplateManager manager;
         private final IStructurePieceType type;
