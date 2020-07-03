@@ -16,6 +16,7 @@ public class BytesFeatureStructures {
     public static final RegistryObject<SlimeyDungeonStructure> SLIMEY_DUNGEON = register("slimey_dungeon", SlimeyDungeonStructure::new);
     public static final RegistryObject<EndHomeStructure> END_HOME = register("end_home", EndHomeStructure::new);
     public static final RegistryObject<BasaltDungeonStructure> BASALT_DUNGEON = register("basalt_dungeon", BasaltDungeonStructure::new);
+    public static final RegistryObject<MeteorImpactStructure> METEOR_IMPACT = register("meteor_impact", MeteorImpactStructure::new);
 
     private static <CF extends IFeatureConfig, T extends Structure<CF>> RegistryObject<T> register(String name, Supplier<T> sup) {
         T structure = sup.get();

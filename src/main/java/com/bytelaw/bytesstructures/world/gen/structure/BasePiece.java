@@ -3,6 +3,7 @@ package com.bytelaw.bytesstructures.world.gen.structure;
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Mirror;
@@ -22,6 +23,7 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -35,6 +37,7 @@ public abstract class BasePiece extends TemplateStructurePiece {
     private ResourceLocation lootTable;
     @Nullable
     private IDataMarkerHandler handler;
+    private BlockPos templateOffset;
 
     protected BasePiece(IStructurePieceType type, BlockPos pos, TemplateManager manager, ResourceLocation location, Rotation rotation) {
         super(type, componentType);
@@ -50,14 +53,22 @@ public abstract class BasePiece extends TemplateStructurePiece {
         this(builder.type, builder.origin, builder.manager, builder.template, builder.rotation);
         this.lootTable = builder.lootTable;
         this.handler = builder.handler;
+        this.templateOffset = builder.offset;
     }
 
     public BasePiece(TemplateManager manager, CompoundNBT nbt) {
-        super(Registry.STRUCTURE_PIECE.getOrDefault(new ResourceLocation(nbt.getString("pieceType"))), nbt);
-        this.pieceType = Registry.STRUCTURE_PIECE.getOrDefault(new ResourceLocation(nbt.getString("pieceType")));
-        this.templateLocation = new ResourceLocation(nbt.getString("Template"));
+        super(Registry.STRUCTURE_PIECE.getOrDefault(new ResourceLocation(nbt.getString("PieceType"))), nbt);
+        this.pieceType = Registry.STRUCTURE_PIECE.getOrDefault(readLoc(nbt, "PieceType"));
+        this.templateLocation = readLoc(nbt, "Template");
         this.rotation = Rotation.valueOf(nbt.getString("Rotation"));
+        if(nbt.contains("LootTable", Constants.NBT.TAG_STRING))
+            this.lootTable = readLoc(nbt, "LootTable");
+        this.templateOffset = NBTUtil.readBlockPos(nbt);
         setup(manager);
+    }
+
+    private ResourceLocation readLoc(CompoundNBT nbt, String name) {
+        return ResourceLocation.tryCreate(nbt.getString(name));
     }
 
     private void setup(TemplateManager manager) {
@@ -69,15 +80,18 @@ public abstract class BasePiece extends TemplateStructurePiece {
     @Override
     protected void readAdditional(CompoundNBT tagCompound) {
         super.readAdditional(tagCompound);
-        tagCompound.putString("pieceType", Registry.STRUCTURE_PIECE.getKey(this.pieceType).toString());
+        tagCompound.putString("PieceType", Registry.STRUCTURE_PIECE.getKey(this.pieceType).toString());
         tagCompound.putString("Template", this.templateLocation.toString());
         tagCompound.putString("Rotation", this.rotation.name());
+        if(lootTable != null)
+            tagCompound.putString("LootTable", this.lootTable.toString());
+        tagCompound.put("TemplateOffset", NBTUtil.writeBlockPos(this.templateOffset));
     }
 
     @Override
     public boolean func_230383_a_(ISeedReader p_230383_1_, StructureManager p_230383_2_, ChunkGenerator p_230383_3_, Random p_230383_4_, MutableBoundingBox p_230383_5_, ChunkPos p_230383_6_, BlockPos p_230383_7_) {
         PlacementSettings placementSettings = new PlacementSettings().setRotation(this.rotation).setMirror(Mirror.NONE);
-        BlockPos pos = new BlockPos(0, 1, 0);
+        BlockPos pos = templateOffset;
         this.templatePosition.add(Template.transformedBlockPos(placementSettings, new BlockPos(-pos.getX(), 0, -pos.getZ())));
         return super.func_230383_a_(p_230383_1_, p_230383_2_, p_230383_3_, p_230383_4_, p_230383_5_, p_230383_6_, p_230383_7_);
     }
@@ -113,6 +127,7 @@ public abstract class BasePiece extends TemplateStructurePiece {
         private Rotation rotation = Rotation.NONE;
         private ResourceLocation lootTable;
         private IDataMarkerHandler handler;
+        private BlockPos offset = new BlockPos(0, 1, 0);
 
         public Builder(ResourceLocation template, BlockPos pos, TemplateManager manager, IStructurePieceType type) {
             this.template = template;
@@ -136,6 +151,11 @@ public abstract class BasePiece extends TemplateStructurePiece {
             return this;
         }
 
+        public Builder setOffset(BlockPos pos) {
+            this.offset = pos;
+            return this;
+        }
+
         public ValidatedBuilder validate() {
             Preconditions.checkNotNull(type);
             Preconditions.checkNotNull(origin);
@@ -154,6 +174,7 @@ public abstract class BasePiece extends TemplateStructurePiece {
         private final Rotation rotation;
         private final ResourceLocation lootTable;
         private final IDataMarkerHandler handler;
+        private final BlockPos offset;
 
         private ValidatedBuilder(Builder builder) {
             this.origin = builder.origin;
@@ -163,6 +184,7 @@ public abstract class BasePiece extends TemplateStructurePiece {
             this.rotation = builder.rotation;
             this.lootTable = builder.lootTable;
             this.handler = builder.handler;
+            this.offset = builder.offset;
         }
     }
 }

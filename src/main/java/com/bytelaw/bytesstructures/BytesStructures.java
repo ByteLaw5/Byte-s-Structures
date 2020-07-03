@@ -83,7 +83,10 @@ public class BytesStructures {
 
     @SuppressWarnings("deprecation")
     private void loadComplete(FMLLoadCompleteEvent event) {
+        if(!BytesConfig.spawnStructures)
+            return;
         DeferredWorkQueue.runLater(() -> {
+//            Biomes.PLAINS.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, BytesFeatures.LARGE_ROCK.get().withConfiguration(new LargeRockConfig(2, 1, 3, new SimpleBlockPlacer())).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(3, 0.1F, 1))));
             BytesBiomes.WALNUT_FOREST.get().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, BytesFeatures.BLACK_WALNUT_BIG_TREE.get().withConfiguration(new BlackWalnutHugeTreeConfig(Lists.newArrayList(new WalnutTreeDecorator()))).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(12, 0.1F, 1))));
             BytesBiomes.WALNUT_FOREST.get().func_235063_a_(BytesFeatureStructures.ANCIENT_LOOT_STRUCTURE.get().func_236391_a_(new ChanceConfig(BytesConfig.ancientLootStructureSpawnChance)));
             Biomes.SWAMP.func_235063_a_(BytesFeatureStructures.SLIMEY_DUNGEON.get().func_236391_a_(new ChanceConfig(BytesConfig.slimeyDungeonSpawnChance)));
@@ -91,6 +94,7 @@ public class BytesStructures {
             Biomes.END_HIGHLANDS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
             Biomes.END_MIDLANDS.func_235063_a_(BytesFeatureStructures.END_HOME.get().func_236391_a_(new ChanceConfig(BytesConfig.endHomeSpawnChance)));
             Biomes.field_235251_aB_.func_235063_a_(BytesFeatureStructures.BASALT_DUNGEON.get().func_236391_a_(IFeatureConfig.NO_FEATURE_CONFIG));
+//            ForgeRegistries.BIOMES.forEach(biome -> biome.func_235063_a_(BytesFeatureStructures.METEOR_IMPACT.get().func_236391_a_(IFeatureConfig.NO_FEATURE_CONFIG)));
         });
         LOGGER.info("Completed loading");
     }

@@ -23,6 +23,7 @@ public class BytesConfig {
     public static int walnutForestBiomeSpawnChance;
     public static int slimeyDungeonSpawnChance;
     public static int endHomeSpawnChance;
+    public static boolean spawnStructures;
 
     @SubscribeEvent
     public static void bakeConfigEvent(ModConfig.ModConfigEvent configEvent) {
@@ -36,6 +37,7 @@ public class BytesConfig {
         walnutForestBiomeSpawnChance = SERVER.walnutForestBiomeSpawnChance.get();
         slimeyDungeonSpawnChance = SERVER.slimeyDungeonSpawnChance.get();
         endHomeSpawnChance = SERVER.endHomeSpawnChance.get();
+        spawnStructures = SERVER.spawnStructures.get();
     }
 
     public static class ServerConfig {
@@ -43,9 +45,13 @@ public class BytesConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> walnutForestBiomeSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> slimeyDungeonSpawnChance;
         public final ForgeConfigSpec.ConfigValue<Integer> endHomeSpawnChance;
+        public final ForgeConfigSpec.ConfigValue<Boolean> spawnStructures;
 
         public ServerConfig(ForgeConfigSpec.Builder builder) {
             builder.push("structures");
+            spawnStructures = builder
+                    .comment("Enable or disable structure spawning")
+                    .define("spawnStructures", true);
             ancientLootStructureSpawnChance = builder
                     .comment("Chance that the ancient loot structure will spawn")
                     .worldRestart() //Makes it that this will need a world restart

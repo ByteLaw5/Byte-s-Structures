@@ -6,7 +6,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.properties.BedPart;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -47,7 +46,6 @@ public class EndHomePieces {
             }
             if("bed".equals(function)) {
                 worldIn.setBlockState(pos1, Blocks.PURPLE_BED.getDefaultState().with(BedBlock.HORIZONTAL_FACING, rotation.rotate(Direction.WEST)), 2);
-                worldIn.setBlockState(pos1.north().rotate(rotation), Blocks.PURPLE_BED.getDefaultState().with(BedBlock.HORIZONTAL_FACING, rotation.rotate(Direction.WEST)).with(BedBlock.PART, BedPart.HEAD), 2);
             }
         })));
 

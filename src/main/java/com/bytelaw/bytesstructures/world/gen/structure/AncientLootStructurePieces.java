@@ -19,7 +19,9 @@ public class AncientLootStructurePieces {
                                     HALLWAY_X = resource("ancient_hallway_x"),
                                     HALLWAY_Z = resource("ancient_hallway_z"),
                                     ROOM_LEFT = resource("ancient_room_left"),
-                                    ROOM_RIGHT = resource("ancient_room_right");
+                                    ROOM_RIGHT = resource("ancient_room_right"),
+                                    ROOM_LEFT_DOWN = resource("ancient_room_left_down"),
+                                    ROOM_RIGHT_DOWN = resource("ancient_room_right_down");
 
     public static void addStructurePieces(TemplateManager manager, BlockPos pos, Rotation rotation, List<StructurePiece> pieces, Random random) {
         int x = pos.getX();
@@ -37,13 +39,25 @@ public class AncientLootStructurePieces {
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(Piece.construct(HALLWAY_X, blockpos, manager, rotation));
 
-        rotationOffset = new BlockPos(16, 0, 0).rotate(rotation);
+        rotationOffset = new BlockPos(16, 0, -1).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(Piece.construct(ROOM_RIGHT, blockpos, manager, rotation));
 
-        rotationOffset = new BlockPos(-16, 0, 0).rotate(rotation);
+        rotationOffset = new BlockPos(-15, 0, -1).rotate(rotation);
         blockpos = rotationOffset.add(x, pos.getY(), z);
         pieces.add(Piece.construct(ROOM_LEFT, blockpos, manager, rotation));
+
+        rotationOffset = new BlockPos(-14, 0, 6).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(Piece.construct(HALLWAY_Z, blockpos, manager, rotation));
+
+        rotationOffset = new BlockPos(16, 0, 6).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(Piece.construct(HALLWAY_Z, blockpos, manager, rotation));
+
+        rotationOffset = new BlockPos(17, 0, 13).rotate(rotation);
+        blockpos = rotationOffset.add(x, pos.getY(), z);
+        pieces.add(Piece.construct(ROOM_LEFT_DOWN, blockpos, manager, rotation));
 
         pieces.forEach(piece -> piece.buildComponent(piece, pieces, random));
     }
@@ -65,6 +79,14 @@ public class AncientLootStructurePieces {
 
         public static Piece construct(ResourceLocation template, BlockPos pos, TemplateManager manager, Rotation rotation, ResourceLocation lootTable) {
             return new Piece(new Builder(template, pos, manager, TYPE, rotation).setLootTable(lootTable).validate());
+        }
+
+        public static Builder constructBuilder(ResourceLocation template, BlockPos pos, TemplateManager manager) {
+            return new Builder(template, pos, manager, TYPE);
+        }
+
+        public static Builder constructBuilder(ResourceLocation template, BlockPos pos, TemplateManager manager, Rotation rotation) {
+            return new Builder(template, pos, manager, TYPE, rotation);
         }
     }
 }
